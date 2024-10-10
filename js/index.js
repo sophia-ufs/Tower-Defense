@@ -11,5 +11,5 @@ const image = new Image()
 image.onload = () => {
     c.drawImage(image, 0, 0)
 }
-image.src = 'img/mapa02.png'
+image.src = 'img/mapa01.png'
     
