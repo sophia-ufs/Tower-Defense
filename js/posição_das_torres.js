@@ -21,7 +21,7 @@ const dados_do_mapa1 = [
 const achar_coordenadas = (num) => {
   const y = Math.floor(num/20)
   const x = num%20
-  const pos = {x: x*32, y: y*32} 
+  const pos = {x: x*64, y: y*64, ocupado: false} 
   return pos
 }
 

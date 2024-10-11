@@ -9,7 +9,7 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 
 const image = new Image()
 image.onload = () => {
-    c.drawImage(image, 0, 0)
+    c.drawImage(image, 0, 0, canvas.width, canvas.height)
 }
 image.src = 'img/mapa01.png'
     
