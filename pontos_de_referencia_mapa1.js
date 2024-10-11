@@ -1,4 +1,4 @@
-const waypoints = [
+const mapaUm = [
     {
      "x":0,
      "y":0
