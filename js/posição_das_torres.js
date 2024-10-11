@@ -19,22 +19,20 @@ const dados_do_mapa1 = [
 ] 
 
 const achar_coordenadas = (num) => {
-  const linha = Math.floor(num/20)
-  const coluna = num%20
-  const pos = {l: linha*32, c: coluna*32}
+  const y = Math.floor(num/20)
+  const x = num%20
+  const pos = {x: x*32, y: y*32} 
   return pos
 }
 
 
-const posição_torres = ([x, ...xs], pos) => { 
+const posição_torres = ([x, ...xs], pos = 0) => { 
   if(pos == 240) return []
-  else{
-    if(x == 0) return posição_torres(xs, pos+1)
-    else return [achar_coordenadas(pos), ...posição_torres(xs, pos+1)]
-  }
+  else if(x == 0) return posição_torres(xs, pos+1)
+  else return [achar_coordenadas(pos), ...posição_torres(xs, pos+1)]
 }
 
-console.log(posição_torres(dados_do_mapa1, 0))
+const torres = posição_torres(dados_do_mapa1)
 
 /* CÓDIGO NÃO FUNCIONAL DA PARTE 1: 
 Fonte: https://github.com/chriscourses/tower-defense/blob/main/js/index.js
