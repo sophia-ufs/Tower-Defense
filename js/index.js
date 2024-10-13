@@ -1,11 +1,14 @@
-const canvas = document.querySelector('canvas')
-const c = canvas.getContext('2d')
+const canvas_m = document.getElementById('canvas_mapa')
+const c = canvas_m.getContext('2d')
+
+const dcv = document.getElementById('dcv');
+const d = dcv.getContext('2d');
     
-canvas.width = 1280*3/4
-canvas.height = 768*3/4
+canvas_m.width = 1280*3/4
+canvas_m.height = 768*3/4
 
 c.fillStyle = 'bisque'
-c.fillRect(0, 0, canvas.width, canvas.height)
+c.fillRect(0, 0, canvas_m.width, canvas_m.height)
 
 // funções genéricas
 const remover = ( lista, elemento ) => {
@@ -27,19 +30,49 @@ const achar = (coord, lista_pos) => {
     })
 }
 
-const image = new Image()
-image.onload = () => {
-    c.drawImage(image, 0, 0, canvas.width, canvas.height)
-
+const visu_temp = () => {
     // visualizar posiçoes
     pos_defensor1.map( pos => {
-        c.fillStyle = 'rgba(255, 255, 255, 0.05) '; 
+        c.fillStyle = 'rgba(255, 255, 255, 0.05) ' 
         c.fillRect(pos.x, pos.y, 48, 48);  
     });
-    //createRectangles();
-}
-image.src = 'img/mapa01.png'
 
+
+    //visualizar personagens 
+    pers_disponiveis.map( pos => {
+
+        if(pos.nome == "Defensor 1"){
+            c.fillStyle = 'rgba(0, 0, 500, 0.5)' 
+            c.fillRect(pos.x, pos.y, 48, 48);  
+        }else{
+            c.fillStyle = 'rgba(255, 0, 0, 0.5)' 
+            c.fillRect(pos.x, pos.y, 48, 48)
+        }
+
+        c.strokeStyle = 'black' // Cor da borda
+        c.lineWidth = 2 // Espessura da borda
+        c.strokeRect(pos.x, pos.y, 48, 48)
+
+        // Adiciona o texto no centro do retângulo
+        c.fillStyle = 'black' // Cor do texto
+        c.font = '9px Arial' // Estilo e tamanho da fonte
+        c.textAlign = 'center' // Alinhamento do texto
+        c.textBaseline = 'middle' // Alinhamento vertical
+        c.fillText(pos.nome, pos.x + 24, pos.y + 24) 
+    })
+}
+
+function desenhar_mapa(){
+    const image = new Image()
+    image.onload = () => {
+        c.drawImage(image, 0, 0, canvas_m.width, canvas_m.height)
+        visu_temp()
+        //createRectangles();
+    }
+    image.src = 'img/mapa01.png'
+}
+
+desenhar_mapa()
 async function teste(){
     const k = await escolhaDefensores(5, 3, [], pos_defensor1, pers_disponiveis) 
     console.log(k)
@@ -72,7 +105,7 @@ function createRectangle() {
 function moveRectangle(rectangle) {
     let position = 0; // Posição inicial
     const interval = setInterval(() => {
-        if (position >= canvas.width) {
+        if (position >= canvas_m.width) {
             clearInterval(interval); // Para o movimento ao alcançar o fim
             rectangle.remove(); // Remove o retângulo após o movimento
         } else {

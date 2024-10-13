@@ -26,22 +26,41 @@ posicao_valida = (x, y, lpos, param = -1) => {
 }
 
 const draw_personagem = (defensores) => {
+
+    d.clearRect(0, 0, canvas_m.width, canvas_m.height)
+
     defensores.forEach(def => {
-        c.fillStyle = 'green'; // Cor do defensor
-        c.fillRect(def.x, def.y, 48, 48); // Desenha o defensor
-    });
+        if(def.nome == "Defensor 1"){
+            d.fillStyle = 'rgba(0, 0, 500, 0.5)'; 
+            d.fillRect(def.x, def.y, 48, 48);  
+        }else{
+            d.fillStyle = 'rgba(255, 0, 0, 0.5)'; 
+            d.fillRect(def.x, def.y, 48, 48);
+        }
+    
+        d.strokeStyle = 'black'; // Cor da borda
+        d.lineWidth = 2; // Espessura da borda
+        d.strokeRect(def.x, def.y, 48, 48);
+    
+        // Adiciona o texto no centro do retângulo
+        d.fillStyle = 'black'; // Cor do texto
+        d.font = '9px Arial'; // Estilo e tamanho da fonte
+        d.textAlign = 'center'; // Alinhamento do texto
+        d.textBaseline = 'middle'; // Alinhamento vertical
+        d.fillText(def.nome, def.x + 24, def.y + 24); 
+    })
 }
 
 function capturaClique(lpos, param = -1){
     return new Promise((resolve) => {
-        canvas.addEventListener('click', function handleClick(event) {
-            const x = event.clientX - canvas.offsetLeft
-            const y = event.clientY - canvas.offsetTop
+        dcv.addEventListener('click', function handleClick(event) {
+            const x = event.clientX - dcv.offsetLeft
+            const y = event.clientY - dcv.offsetTop
             const valida = posicao_valida(x, y, lpos, param)
             
             if(valida){
                 resolve({ x, y })
-                canvas.removeEventListener('click', handleClick)
+                dcv.removeEventListener('click', handleClick)
             }else{
                 console.log("Não Válida")
             }
@@ -84,18 +103,12 @@ async function escolhaDefensores(qtd, moedas, ldef, lpos, lpers){
             const n_defensor = defensor(pers.nome, pers.ataque, pers.custo, pos.x, pos.y)
             const n_moedas = moedas - pers.custo
             const n_ldef = [...ldef, n_defensor]
-
-            draw_personagem(n_ldef)
-
             return await escolhaDefensores(qtd - 1, n_moedas, n_ldef, n_lpos, lpers);
         }else{
             console.log("op 2")
             const pers = achar(coord_pos, ldef)[0]
             const n_moedas = pers.custo*0.25 + moedas
             const n_ldef = remover(ldef, pers)
-
-            draw_personagem(n_ldef)
-
             return await escolhaDefensores(qtd - 1, n_moedas, n_ldef, n_lpos, lpers);
         }
     }
