@@ -1,11 +1,31 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
     
-canvas.width = 1280
-canvas.height = 768
+canvas.width = 1280*3/4
+canvas.height = 768*3/4
 
 c.fillStyle = 'bisque'
 c.fillRect(0, 0, canvas.width, canvas.height)
+
+// funções genéricas
+const remover = ( lista, elemento ) => {
+    return lista.filter((x) => x != elemento )
+}
+const adicionar = ( lista, elemento ) => {
+    return [...lista, elemento]
+}
+const editar = ( lista, elemento, n_elemento) => {
+    const aux = remover(lista, elemento)
+    return adicionar(aux, n_elemento)
+}
+const achar = (coord, lista_pos) => {
+    return lista_pos.filter(pos => {
+        return (
+            coord.x > pos.x && coord.x < pos.x + 48 &&
+            coord.y > pos.y && coord.y < pos.y + 48
+        )
+    })
+}
 
 const image = new Image()
 image.onload = () => {
@@ -14,17 +34,16 @@ image.onload = () => {
     // visualizar posiçoes
     pos_defensor1.map( pos => {
         c.fillStyle = 'rgba(255, 255, 255, 0.05) '; 
-        c.fillRect(pos.x, pos.y, 64, 64);  
+        c.fillRect(pos.x, pos.y, 48, 48);  
     });
-    createRectangles();
+    //createRectangles();
 }
 image.src = 'img/mapa01.png'
 
 async function teste(){
-    const k = await escolhaDefensores(5, 3, [], pos_defensor1) 
+    const k = await escolhaDefensores(5, 3, [], pos_defensor1, pers_disponiveis) 
     console.log(k)
 }
-
 teste()
 
 //Função para criar retangulos (ainda nao funcional)

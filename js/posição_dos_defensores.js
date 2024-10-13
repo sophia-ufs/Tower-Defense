@@ -31,8 +31,8 @@ const dados_pers_mapa1 = [
 
 const nova_pos_defesa = (x, y, ocupado) => {
   return {
-      x : x*64,
-      y : y*64,
+      x : x*48,
+      y : y*48,
       ocupado : ocupado
   }
 }
@@ -48,4 +48,5 @@ const achar_posiçoes_d = ([x, ...xs], param, pos = 0) => {
 }
 const pos_defensor1 = achar_posiçoes_d(dados_locais_mapa1, 24)
 const pos_pers1 = achar_posiçoes_d(dados_pers_mapa1, 4329)
+console.log(pos_pers1)
 console.log(pos_defensor1)
