@@ -35,7 +35,6 @@ function createRectangles() {
     }
 }
 
-// Função para criar um retângulo
 function createRectangle() {
     const rectangle = document.createElement("div");
     rectangle.className = "retangulo"; // Classe CSS do retângulo
@@ -61,5 +60,5 @@ function moveRectangle(rectangle) {
             position += 2; // Ajuste a velocidade do movimento
             rectangle.style.left = position + "px"; // Move o retângulo
         }
-    }, 20); // Ajuste o tempo para alterar a taxa de movimento
+    }, 30); // Ajuste o tempo para alterar a taxa de movimento
 }
