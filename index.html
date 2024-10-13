@@ -1,3 +1,30 @@
+<head>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #game-container {
+            position: relative; /* Permite que elementos filhos sejam posicionados em relação a ele */
+            width: 100%; /* Ocupa 100% da largura da tela */
+            height: 100vh; /* Ocupa 100% da altura da janela */
+        }
+
+        /* O estilo para o retângulo */
+        .retangulo {
+            position: absolute; /* Permite que o retângulo seja posicionado em relação ao #game-container */
+            top: 145px; /* Distância do topo */
+            left: -10px; /* Distância da esquerda */
+            width: 110px; /* Largura do retângulo */
+            height: 90px; /* Altura do retângulo */
+            background-color: rgba(255, 0, 98, 0); /* Cor do retângulo (rosa) */
+            z-index: 10; /* Garante que o retângulo fique acima de outros elementos */
+        }
+    </style>
+</head>
+
 <style>
     body {
         background-color: bisque;
@@ -5,6 +32,8 @@
 </style>
 
 <canvas></canvas>
+
+<div class="retangulo"></div>
 
 <script src="js/posição_dos_defensores.js"></script>
 <script src="js/escolha_defensor.js"></script>
