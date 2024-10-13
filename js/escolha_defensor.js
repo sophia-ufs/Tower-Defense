@@ -1,44 +1,43 @@
-const defensor = (nome, ataque, x, y, custo) => {
+const defensor = (nome, ataque, custo, x, y) => {
     return {
         nome: nome,
         ataque: ataque,
         custo : custo,
-        pos: {
-            x : x,
-            y : y,
-        }
+        x : x,
+        y : y,
     }
 }
 
-posicao_valida = (x, y, lista_pos) => {
-    const aux = lista_pos.some(pos => {
+const pers_disponiveis = [
+    defensor('Defensor 1', 1, 1, pos_pers1[0].x, pos_pers1[0].y),
+    defensor('Defensor 2', 2, 2, pos_pers1[3].x, pos_pers1[3].y)
+]
+
+posicao_valida = (x, y, lpos, param = -1) => {
+    const aux = lpos.filter(pos => {
         return (
-            x > pos.x && x < pos.x + 64 &&
-            y > pos.y && y < pos.y + 64
+            x > pos.x && x < pos.x + 48 &&
+            y > pos.y && y < pos.y + 48
         )
     })
-    return aux
+    if(aux.length == 0) return false
+    else if(param >= 0 && aux[0].custo > param) return false
+    else return true
 }
 
-const draw_personagem = (coord, lista_pos) => {
-    const aux = lista_pos.filter(pos => {
-        return (
-            coord.x > pos.x && coord.x < pos.x + 64 &&
-            coord.y > pos.y && coord.y < pos.y + 64
-        )
-    })
-
-    const pos = aux[0]
-    c.fillStyle = 'black';
-    c.fillRect(pos.x, pos.y, 64, 64) 
-    
+const draw_personagem = (defensores) => {
+    defensores.forEach(def => {
+        c.fillStyle = 'green'; // Cor do defensor
+        c.fillRect(def.x, def.y, 48, 48); // Desenha o defensor
+    });
 }
-function capturaClique(lista_pos){
+
+function capturaClique(lpos, param = -1){
     return new Promise((resolve) => {
         canvas.addEventListener('click', function handleClick(event) {
             const x = event.clientX - canvas.offsetLeft
             const y = event.clientY - canvas.offsetTop
-            const valida = posicao_valida(x, y, lista_pos)
+            const valida = posicao_valida(x, y, lpos, param)
             
             if(valida){
                 resolve({ x, y })
@@ -49,20 +48,55 @@ function capturaClique(lista_pos){
         })
     })
 }
-async function escolhaDefensores(qtd_escolhas, coins){
-    if(qtd_escolhas == 0){
+async function escolhaDefensores(qtd, moedas, ldef, lpos, lpers){
+
+    draw_personagem(ldef)
+    if(qtd == 0){
         console.log("Acabou a qtd de escolhas")
-        return []
-    }else if ( coins == 0 ){
+        return{
+            moedas: moedas,
+            defensores : ldef,
+            posicoes : lpos
+        }
+    }else if ( moedas < 1 ){
         console.log("Acabou o dinheiro")
-        return []
+        return{
+            moedas: moedas,
+            defensores : ldef,
+            posicoes : lpos
+        }
     }else{
+
         console.log("Escolha a posição")
-        const coordenadas_pos = await capturaClique(pos_defensor1);
-        console.log(coordenadas_pos)
+        const coord_pos = await capturaClique(lpos)
+        const pos = achar(coord_pos, lpos)[0]
+
+        const inv_pos = {x:pos.x, y:pos.y, ocupado:!pos.ocupado}
+        const n_lpos = editar(lpos, pos, inv_pos)
         
-        draw_personagem(coordenadas_pos, pos_defensor1)
-        const n_coins = coins - 1
-        return await escolhaDefensores(qtd_escolhas - 1, n_coins);
+        console.log(pos)
+
+        if(pos.ocupado === false){
+            console.log("Escolha o personagem", moedas)
+            const coord_pers = await capturaClique(lpers, moedas)
+            const pers = achar(coord_pers, lpers)[0]
+            
+            const n_defensor = defensor(pers.nome, pers.ataque, pers.custo, pos.x, pos.y)
+            const n_moedas = moedas - pers.custo
+            const n_ldef = [...ldef, n_defensor]
+
+            draw_personagem(n_ldef)
+
+            return await escolhaDefensores(qtd - 1, n_moedas, n_ldef, n_lpos, lpers);
+        }else{
+            console.log("op 2")
+            const pers = achar(coord_pos, ldef)[0]
+            const n_moedas = pers.custo*0.25 + moedas
+            const n_ldef = remover(ldef, pers)
+
+            draw_personagem(n_ldef)
+
+            return await escolhaDefensores(qtd - 1, n_moedas, n_ldef, n_lpos, lpers);
+        }
     }
 }
