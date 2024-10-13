@@ -17,28 +17,39 @@ posicao_valida = (x, y, lista_pos) => {
             y > pos.y && y < pos.y + 64
         )
     })
-    console.log(x,y)
-    console.log(aux)
     return aux
 }
-const capturaClique = async (lista_pos) => {
+
+const draw_personagem = (coord, lista_pos) => {
+    const aux = lista_pos.filter(pos => {
+        return (
+            coord.x > pos.x && coord.x < pos.x + 64 &&
+            coord.y > pos.y && coord.y < pos.y + 64
+        )
+    })
+
+    const pos = aux[0]
+    c.fillStyle = 'black';
+    c.fillRect(pos.x, pos.y, 64, 64) 
+    
+}
+function capturaClique(lista_pos){
     return new Promise((resolve) => {
         canvas.addEventListener('click', function handleClick(event) {
-            const mouseX = event.clientX - canvas.offsetLeft
-            const mouseY = event.clientY - canvas.offsetTop
-            const valida = posicao_valida(mouseX, mouseY, lista_pos)
-
-            if(!valida){
-                console.log("Não Válida")
-                capturaClique(lista_pos)
+            const x = event.clientX - canvas.offsetLeft
+            const y = event.clientY - canvas.offsetTop
+            const valida = posicao_valida(x, y, lista_pos)
+            
+            if(valida){
+                resolve({ x, y })
+                canvas.removeEventListener('click', handleClick)
             }else{
-                // Retorna as coordenadas do clique
-                resolve({ mouseX, mouseY })
+                console.log("Não Válida")
             }
         })
     })
 }
-const escolhaDefensores = async (qtd_escolhas, coins) => {
+async function escolhaDefensores(qtd_escolhas, coins){
     if(qtd_escolhas == 0){
         console.log("Acabou a qtd de escolhas")
         return []
@@ -49,9 +60,9 @@ const escolhaDefensores = async (qtd_escolhas, coins) => {
         console.log("Escolha a posição")
         const coordenadas_pos = await capturaClique(pos_defensor1);
         console.log(coordenadas_pos)
-    
+        
+        draw_personagem(coordenadas_pos, pos_defensor1)
         const n_coins = coins - 1
-        // Continua a recursão para mais escolhas
         return await escolhaDefensores(qtd_escolhas - 1, n_coins);
     }
 }

@@ -19,4 +19,9 @@ image.onload = () => {
 }
 image.src = 'img/mapa01.png'
 
-escolhaDefensores(5, 2)
+async function teste(){
+    const k = await escolhaDefensores(5, 3, [], pos_defensor1) 
+    console.log(k)
+}
+
+teste()
