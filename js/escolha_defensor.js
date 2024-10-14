@@ -33,17 +33,16 @@ posicao_valida = (x, y, lpos, param = -1) => {
 }
 
 const draw_defensor = (defensores) => {
-
     defensores.forEach(def => {
         if(def.nome == "Defensor 1"){
-            c.fillStyle = 'rgba(0, 0, 500, 0.5)' 
-            c.fillRect(def.x, def.y, 48, 48);  
+            d.fillStyle = 'rgba(0, 0, 500, 0.5)' 
+            d.fillRect(def.x, def.y, 48, 48);  
         }else if(def.nome == "Defensor 2"){
-            c.fillStyle = 'rgba(255, 0, 0, 0.5)' 
-            c.fillRect(def.x, def.y, 48, 48)
+            d.fillStyle = 'rgba(255, 0, 0, 0.5)' 
+            d.fillRect(def.x, def.y, 48, 48)
         }else{
-            c.fillStyle = 'rgba(0, 300, 0, 0.5)' 
-            c.fillRect(def.x, def.y, 48, 48)
+            d.fillStyle = 'rgba(0, 300, 0, 0.5)' 
+            d.fillRect(def.x, def.y, 48, 48)
         }
     
         d.strokeStyle = 'black'; // Cor da borda
@@ -89,7 +88,7 @@ lpers : lista de defensores que se pode escolher
  */
 async function escolhaDefensores(qtd, moedas, ldef, lpos, lpers){
     //desenhas os defensores
-    d.clearRect(0, 0, canvas_m.width, canvas_m.height)
+    d.clearRect(0, 0, dcv.width, dcv.height)
     draw_defensor(ldef)
 
     if(qtd == 0){
