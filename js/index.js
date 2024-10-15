@@ -12,7 +12,7 @@ canvas_m.height = 576
 c.fillStyle = 'bisque'
 c.fillRect(0, 0, canvas_m.width, canvas_m.height)
 
-//função para visualizar as coisas provisoriamente
+//função para visualizar as coisas provisoriamente (para debug e teste das coisas)
 const visu_temp = () => {
     //visualizar os pontos de referência
     mapaUm.map( pos => {
@@ -62,20 +62,20 @@ image.onload = () => {
 }
 image.src = 'img/mapa01.png'
 
-// função de iniciar o jogo (uso do async por causa da dependência dos cliques do mouse)
+// função de iniciar o jogo
 async function iniciar(){
 
-    //resultado da primeira escolha do jogador, com 5 mudanças possíveis e 6 moedas
+    //resultado da primeira escolha do jogador, podendo adicionar 5 defensores com 6 moedas disponíveis
     const escolha1 = await escolhaDefensores(5, 6, [], pos_defensor1, pers_disponiveis) 
 
     //inimigos da horda 1
-    const horda1 = [
+    const horda1 = Object.freeze([
         {nome: "Invasor 1", vida: 10, ataque: 2, x: 28, y: 124, dir: 0},
         {nome: "Invasor 2", vida: 3, ataque: 3, x: -68, y: 124, dir: 0},
         {nome: "Invasor 2", vida: 3, ataque: 3, x: -164, y: 124, dir: 0},
         {nome: "Invasor 1", vida: 10, ataque: 2, x: -260, y: 124, dir: 0},
         {nome: "Invasor 3", vida: 20, ataque: 1, x: -356, y: 124, dir: 0},
-    ]
+    ])
 
     // ini: inimigo que já está na tela
     const ini = horda1.slice(0, 1)

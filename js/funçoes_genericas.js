@@ -1,4 +1,3 @@
-// funções genéricas
 const remover = ( lista, elemento ) => {
     return lista.filter((x) => x != elemento )
 }
@@ -10,7 +9,10 @@ const editar = ( lista, elemento, n_elemento) => {
     return adicionar(aux, n_elemento)
 }
 
-// achar se a coordenada intercepta uma das posições em lista_pos, e retornar a posição interceptada
+/*
+lista_pos representara quadrados de lado 48 
+achar retorna o "quadrado" de lista_pos em que coord esta inclusa
+*/
 const achar = (coord, lista_pos) => {
     return lista_pos.filter(pos => {
         return (
@@ -19,4 +21,9 @@ const achar = (coord, lista_pos) => {
         )
     })
 }
+
+// retorna true se x tem valor indefinido
 const indef = x => typeof x == 'undefined'
+
+// conversão das coordenadas para um registro
+const coord = (x, y) => ({x:x, y:y})

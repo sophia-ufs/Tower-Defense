@@ -1,5 +1,5 @@
 // função para criar um novo defensor
-const defensor = (nome, ataque, custo, x, y, alcance = 2) => {
+const defensor = (nome, ataque, custo, x, y, alcance) => {
     return {
         nome: nome,
         ataque: ataque,
@@ -18,17 +18,22 @@ const pers_disponiveis = [
 ]
 
 /* 
-analisar se uma posição é válida
-se param == -1 : estou analisando as posições onde se podem colocar defensores -> escolha da posição
-se param >= 0 : representa quantas moedas o jogador tem, e analisa 
-os personagens que ele consegue custear -> escolha do personagem
+analisar se uma posição clicada é válida
+se param == -1 : 
+    momento da escolha da posição do defensor
+    retorna true se (x,y) esta dentro de algm dos quadrados válidos
+se param >= 0 : 
+    momento da escolha do personagem 
+    param vai representar a qtd de dinheiro que o jogador tem
+    retorna true se a posição representar o lugar onde estão os personagens e se o jogador tem 
+    dinheiro suficiente para aquele personagem
 
-lpos representa a lista de posições em que se podem clicar no momento
+lpos representa a lista de posições válidas para aquele momento 
 */
-posicao_valida = (x, y, lpos, param = -1) => {
-    const aux = achar({x:x, y:y} , lpos)
-    if(aux.length == 0) return false // n achei uma posição válida
-    else if(param >= 0 && aux[0].custo > param) return false // achei uma posição válida, mas n posso custear
+const posicao_valida = (x, y, lpos, param = -1) => {
+    const found = achar(coord(x,y) , lpos)[0] // found : resultado da procura por (x,y) em lpos
+    if(indef(found)) return false // (x,y) n esta na lista de pos válidas
+    else if(param >= 0 && found.custo > param) return false // achei (x, y), mas o jogador n tem dinheiro suficiente 
     else return true
 }
 
@@ -50,16 +55,16 @@ const draw_defensor = (defensores) => {
         d.strokeRect(def.x, def.y, 48, 48);
     
         // Adiciona o texto no centro do retângulo
-        d.fillStyle = 'black'; // Cor do texto
-        d.font = '9px Arial'; // Estilo e tamanho da fonte
-        d.textAlign = 'center'; // Alinhamento do texto
+        d.fillStyle = 'black'; 
+        d.font = '9px Arial'; 
+        d.textAlign = 'center'; // Alinhamento horizontal
         d.textBaseline = 'middle'; // Alinhamento vertical
         d.fillText(def.nome, def.x + 24, def.y + 24); 
     })
 }
 
 // espera o clique em uma posição válida e retorna as coordenadas de onde esse clique aconteceu
-function capturaClique(lpos, param = -1){
+const capturaClique = (lpos, param = -1) => {
     return new Promise((resolve) => {
         dcv.addEventListener('click', function handleClick(event) {
             const x = event.clientX - dcv.offsetLeft
@@ -69,37 +74,38 @@ function capturaClique(lpos, param = -1){
             if(valida){
                 resolve({ x, y })
                 dcv.removeEventListener('click', handleClick)
+                // se o clique foi válido, retorna as coordenadas a para de esperar um clique
             }else{
                 console.log("Não Válida")
+                // qnd o clique n for válido, continua esperando um novo clique
             }
         })
     })
 }
 
 /*
-função que retorna ao final ols defenfores escolhidos, as moedas restantes e a situação
-das posições em que se podem colocar personagens ( se estão ocupadas ou n)
+função que retorna os defenfores escolhidos, as moedas restantes e a situação 
+das posições em que se podem colocar personagens ( se estão ocupadas ou n) atualizada
 
-qtd: quantas mudanças o jogador ainda pode fazer
-ldef : lista de defensores
+qtd: quantos personagens podem ser adicionados
+ldef : lista de defensores escolhidos até ent
 lpos : lista de posições onde se pode alocar defensores
 lpers : lista de defensores que se pode escolher
+*/
+const escolhaDefensores = async (qtd, moedas, ldef, lpos, lpers) => {
+    d.clearRect(0, 0, dcv.width, dcv.height) // limpa o canvas 
+    draw_defensor(ldef) // desenha os defensores
 
- */
-async function escolhaDefensores(qtd, moedas, ldef, lpos, lpers){
-    //desenhas os defensores
-    d.clearRect(0, 0, dcv.width, dcv.height)
-    draw_defensor(ldef)
-
-    if(qtd == 0){
+    if(qtd == 0){ // caso base 
         console.log("Acabou a qtd de escolhas")
         return{
             moedas: moedas,
             defensores : ldef,
             posicoes : lpos
         }
-    }else if ( moedas < 1 ){
-        console.log("Acabou o dinheiro")
+    }else if ( moedas < 1 ){ // caso base
+        // considerando que o defensor mais barato custa 1
+        console.log("Dinheiro insuficiente")
         return{
             moedas: moedas,
             defensores : ldef,
@@ -107,26 +113,31 @@ async function escolhaDefensores(qtd, moedas, ldef, lpos, lpers){
         }
     }else{
         console.log("Escolha a posição")
-        const coord_pos = await capturaClique(lpos)
+        const coord_pos = await capturaClique(lpos) // coordenadas do clique
+        // pos representa o quadrado em que a coord_pos está inclusa
         const pos = achar(coord_pos, lpos)[0]
 
-        const inv_pos = {x:pos.x, y:pos.y, ocupado:!pos.ocupado}
-        const n_lpos = editar(lpos, pos, inv_pos)
+        // edição da situação da posição, se ocupada == true, troco para ocupada == false e vice-versa
+        const inv_pos = {x:pos.x, y:pos.y, ocupado:!pos.ocupado} 
+        const n_lpos = editar(lpos, pos, inv_pos) // lista de posiçõea atualizada
 
-        if(pos.ocupado === false){
+        // se a posição n estava ocupada, ent tenho que escolher o personagem para ocupá-la
+        if(pos.ocupado == false){
             console.log("Escolha o personagem", moedas)
-            const coord_pers = await capturaClique(lpers, moedas)
+            const coord_pers = await capturaClique(lpers, moedas) // coordenadas do clique
+            // pers representa o personagem do quadrado em que a coord_pos está inclusa
             const pers = achar(coord_pers, lpers)[0]
             
-            const n_defensor = defensor(pers.nome, pers.ataque, pers.custo, pos.x, pos.y, pers.alcance)
+            const n_def = defensor(pers.nome, pers.ataque, pers.custo, pos.x, pos.y, pers.alcance) // defensor que vai ser adicionado
             const n_moedas = moedas - pers.custo
-            const n_ldef = [...ldef, n_defensor]
+            const n_ldef = adicionar(ldef, n_def)
+
             return await escolhaDefensores(qtd - 1, n_moedas, n_ldef, n_lpos, lpers);
-        }else{
-            const pers = achar(coord_pos, ldef)[0]
-            const n_moedas = pers.custo*0.25 + moedas
-            const n_ldef = remover(ldef, pers)
-            return await escolhaDefensores(qtd - 1, n_moedas, n_ldef, n_lpos, lpers);
+        }else{ // se a pos esta ocupada, vou tirar o personagem alocado nela
+            const pers = achar(coord_pos, ldef)[0] // acho quem é esse personagem
+            const n_moedas = pers.custo*0.25 + moedas // 25% de cashback do custo do personagem
+            const n_ldef = remover(ldef, pers) // removo da lista de defensores
+            return await escolhaDefensores(qtd, n_moedas, n_ldef, n_lpos, lpers)
         }
     }
 }
