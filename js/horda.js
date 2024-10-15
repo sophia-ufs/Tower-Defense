@@ -123,52 +123,41 @@ const draw_invasor = (invasores) => {
     })
 }
 
-// função para esperar um clique antes de prosseguir com o código
-const click = () => {
-    return new Promise((resolve) => {
-        dcv.addEventListener('click', function handleClick(event) {
-            resolve()
-            dcv.removeEventListener('click', handleClick)
-        })
-    })
-}
+// Função de atraso para dar tempo de renderização entre os ciclos
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
-/*
-função recursiva que retornará as vidas e as moedas após uma horda
-inv_curr : inimigos que atualmente estão atravessando o mapa
-inv_fora : inimigos que ainda vão adentrar o mapa
-def : defensores que foram escolhidos pelo jogador
-*/
+// função recursiva que retornará as vidas e as moedas após uma horda
 const horda = async (inv_curr, vida, moedas, inv_fora, def) => {
-    
-    //desenho os invasores e os defensores
+
+    // Desenho os invasores e os defensores
     draw_invasor(inv_curr)
     draw_defensor(def)
 
-    await click() // espera o click para continuar a horda
+    // Adiciona um pequeno atraso para dar tempo para os inimigos aparecerem
+    await delay(500); // Meio segundo de pausa entre os movimentos
 
-    if(inv_curr.length == 0 || vida <= 0){ // caso base
-        //ou não tem nenhum invasor na tela, ou o jogador perdeu todas suas vidas
-        return {vida : vida, moedas : moedas}
-    }else{
+    if (inv_curr.length == 0 || vida <= 0) { // Caso base: Sem invasores ou jogador perdeu todas as vidas
+        return {vida: vida, moedas: moedas};
+    } else {
+        // Primeiro os defensores atacam os invasores
+        const atq = ataque_defensores(def, inv_curr);
+        const n_moedas = moedas + atq.ganho;
 
-        // primeiro os defensores atacam os invasores
-        const atq = ataque_defensores(def, inv_curr)
-        const n_moedas = moedas + atq.ganho
+        // Depois os invasores se movimentam
+        const mov = updtPos(atq.inv); // Movimento de quem já estava no mapa
+        const mov2 = updtPos(inv_fora); // Movimento de quem ainda não estava no mapa
 
-        // depois os invasores se movimentam
-        const mov = updtPos(atq.inv) // movimento de quem já estava no mapa
-        const mov2 = updtPos(inv_fora) // movimento de quem ainda n estava no mapa
+        // Novos são os inimigos que acabaram de aparecer no mapa
+        const novos = mov2.inv.filter((curr) => curr.x >= 0);
 
-        // novos são os inimigos que acabaram de aparecer no mapa
-        const novos = mov2.inv.filter((curr) => curr.x >= 0) 
+        // n_fora representará a nova lista de quem ainda não apareceu no mapa
+        const n_fora = mov2.inv.filter((curr) => curr.x < 0);
 
-        // n_fora representará a nova lista de quem ainda n apareceu no mapa
-        const n_fora = mov2.inv.filter((curr) => curr.x < 0)
+        // n_inv representa a nova lista de quem está no mapa
+        const n_inv = [...mov.inv, ...novos];
+        const n_vida = vida - mov.perda;
 
-        // n_inv representa a nova lista de quem esta no mapa
-        const n_inv = [...mov.inv, ...novos]
-        const n_vida = vida - mov.perda
-        return await horda(n_inv, n_vida, n_moedas, n_fora, def)
+        // Chama a próxima iteração da horda após o movimento e ataque
+        return await horda(n_inv, n_vida, n_moedas, n_fora, def);
     }
 }
