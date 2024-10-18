@@ -161,3 +161,9 @@ const horda = async (inv_curr, vida, moedas, inv_fora, def) => {
         return await horda(n_inv, n_vida, n_moedas, n_fora, def);
     }
 }
+
+// barras de vida
+const draw_healthBar = (invasor) => {
+    d.fillStyle = "green"
+    d.fillRect (curr.x, curr.y - 6, curr.width, 3)
+}

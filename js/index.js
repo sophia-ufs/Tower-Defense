@@ -70,11 +70,11 @@ async function iniciar(){
 
     //inimigos da horda 1
     const horda1 = Object.freeze([
-        {nome: "Invasor 1", vida: 10, ataque: 2, x: 28, y: 124, dir: 0},
-        {nome: "Invasor 2", vida: 3, ataque: 3, x: -68, y: 124, dir: 0},
-        {nome: "Invasor 2", vida: 3, ataque: 3, x: -164, y: 124, dir: 0},
-        {nome: "Invasor 1", vida: 10, ataque: 2, x: -260, y: 124, dir: 0},
-        {nome: "Invasor 3", vida: 20, ataque: 1, x: -356, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 3, ataque: 2, x: 28, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 10, ataque: 3, x: -68, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 10, ataque: 3, x: -164, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 3, ataque: 2, x: -260, y: 124, dir: 0},
+        {nome: "Phantom", vida: 20, ataque: 4, x: -356, y: 124, dir: 0},
     ])
 
     // ini: inimigo que já está na tela
