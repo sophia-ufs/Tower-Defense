@@ -120,8 +120,26 @@ const draw_invasor = (invasores) => {
         d.textAlign = 'center';
         d.textBaseline = 'middle';
         d.fillText(inv.vida, inv.x + 24, inv.y + 24);
+    
+        draw_healthBar(inv);
     })
+
 }
+
+// Função para desenhar a barra de vida acima do invasor
+const draw_healthBar = (inv) => {
+    const maxWidth = 48; //Largura máxima da barrinha de vida
+    const maxLife = 20; // Vida máxima
+    const healthPercentage = inv.vida / maxLife; // Percentual de vida (assumindo vida máxima aleatória de 20 para baixo)
+
+    // Definindo cor: verde > amarelo > vermelho
+    const color = healthPercentage > 0.5 ? 'green' :
+                  healthPercentage > 0.25 ? 'yellow' : 'red';
+
+    // Desenha a barra de vida acima do invasor
+    d.fillStyle = color;
+    d.fillRect(inv.x, inv.y - 12, maxWidth * healthPercentage, 8); // Tamanhos de largura e comprimento da barra de vida acima do invasor
+};
 
 // Função de atraso para dar tempo de renderização entre os ciclos
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
@@ -163,7 +181,4 @@ const horda = async (inv_curr, vida, moedas, inv_fora, def) => {
 }
 
 // barras de vida
-const draw_healthBar = (invasor) => {
-    d.fillStyle = "green"
-    d.fillRect (curr.x, curr.y - 6, curr.width, 3)
-}
+// This function is redundant and has been removed to avoid conflicts.

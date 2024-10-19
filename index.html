@@ -36,6 +36,23 @@
             left: 0;
             z-index: 2; /* Coloca este canvas acima */
         }
+
+        .enemy-health-bar {
+        width: 100px;
+        height: 10px;
+        background-color: #333;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+        }
+
+        .health {
+        height: 100%;
+        width: 100%;
+        background-color: green;
+        border-radius: 5px;
+        transition: width 0.5s ease, background-color 0.5s ease;
+        }
     </style>
 </head>
 
