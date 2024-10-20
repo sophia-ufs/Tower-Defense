@@ -1,28 +1,11 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Defense</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        #game-container {
-            position: relative; /* Permite que elementos filhos sejam posicionados em relação a ele */
-            width: 100%; /* Ocupa 100% da largura da tela */
-            height: 100vh; /* Ocupa 100% da altura da janela */
-        }
-
-        /* O estilo para o retângulo */
-        .retangulo {
-            position: absolute; /* Permite que o retângulo seja posicionado em relação ao #game-container */
-            top: 145px; /* Distância do topo */
-            left: -10px; /* Distância da esquerda */
-            width: 110px; /* Largura do retângulo */
-            height: 90px; /* Altura do retângulo */
-            background-color: rgba(255, 0, 98, 0); /* Cor do retângulo (transparente) */
-            z-index: 10; /* Garante que o retângulo fique acima de outros elementos */
-        }
-
+        
         #canvas_mapa {
             position: absolute; /* Permite sobreposição */
             top: 0;
@@ -38,40 +21,70 @@
         }
 
         .enemy-health-bar {
-        width: 100px;
-        height: 10px;
-        background-color: #333;
-        border-radius: 5px;
-        overflow: hidden;
-        position: relative;
+            width: 100px;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
         }
 
         .health {
-        height: 100%;
-        width: 100%;
-        background-color: green;
-        border-radius: 5px;
-        transition: width 0.5s ease, background-color 0.5s ease;
+            height: 100%;
+            width: 100%;
+            background-color: green;
+            border-radius: 5px;
+            transition: width 0.5s ease, background-color 0.5s ease;
+        }
+
+        /* Estilo principal da página */
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: bisque;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilização do canvas do jogo */
+        canvas {
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+        /* Exibição da vida do jogador */
+        #drawVida {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            color: rgb(0, 0, 0);
         }
     </style>
 </head>
+<body>
+    <!-- Contêiner do jogo -->
+    <div id="game-container">
+        
+        <!-- Canvas do jogo -->
+        <canvas id="canvas_mapa"></canvas>
+        <canvas id="dcv" width="960" height="576"></canvas>
 
-<style>
-    body {
-        background-color: bisque;
-    }
-</style>
+    </div>
+
+    <!-- Script para o jogo -->
+    <script src="js/funçoes_genericas.js"></script>
+    <script src="js/posição_dos_defensores.js"></script>
+    <script src="js/escolha_defensor.js"></script>
+    <script src="js/horda.js"></script>
+    <script src ="js/index.js"></script>
+</body>
+</html>
 
 
-<canvas id="canvas_mapa"></canvas>
-<canvas id="dcv" width="960" height="576"></canvas>
-
-<div class="retangulo"></div>
 
 <!-- <script src="js/mapaUm.js"></script> -->
 <!-- <script src="js/mapaDois.js"></script> -->
-<script src="js/funçoes_genericas.js"></script>
-<script src="js/posição_dos_defensores.js"></script>
-<script src="js/escolha_defensor.js"></script>
-<script src="js/horda.js"></script>
-<script src = "js/index.js"></script>
