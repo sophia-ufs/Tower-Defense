@@ -5,6 +5,7 @@ const c = canvas_m.getContext('2d')
 // canvas para os defensores e invasores -> fica sendo redesenhado
 const dcv = document.getElementById('dcv');
 const d = dcv.getContext('2d');
+const startButton = document.getElementById('startButton');
     
 canvas_m.width = 960
 canvas_m.height = 576
@@ -58,9 +59,11 @@ const image = new Image()
 image.onload = () => {
     c.drawImage(image, 0, 0, canvas_m.width, canvas_m.height)
     visu_temp()
-    //createRectangles();
 }
 image.src = 'img/mapa01.png'
+
+startButton.addEventListener('click', () => {
+    startButton.style.display = 'none'
 
 // função de iniciar o jogo
 async function iniciar(){
@@ -105,4 +108,5 @@ async function iniciar(){
     console.log("Vida : ", r_horda2.vida)
     console.log("Moedas : ", r_horda2.moedas)
 }
-iniciar()
+iniciar ()
+});

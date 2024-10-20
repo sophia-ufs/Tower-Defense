@@ -64,6 +64,36 @@
             color: rgb(0, 0, 0);
         }
 
+        #startButton {
+            background-color: #ffcc00;
+            color: white;
+            margin-top: 10px;
+            padding: 15px 30px;
+            font-size: 24px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            position: absolute;
+            box-shadow: 0 5px #a5a0a0;
+            transition: all 0.3s ease;
+            top: 55%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        #startButton:hover {
+            background-color: #15ff00;
+            box-shadow: 0 7px #555555;
+        }
+
+        #startButton:active {
+            background-color: #ff8800;
+            box-shadow: 0 2px #666;
+            transform: translateY(-50px, -46px);
+        }
         
     </style>
 </head>
@@ -74,6 +104,7 @@
         <!-- Canvas do jogo -->
         <canvas id="canvas_mapa"></canvas>
         <canvas id="dcv" width="960" height="576"></canvas>
+        <button id="startButton">Iniciar Jogo</button>
 
     </div>
 
