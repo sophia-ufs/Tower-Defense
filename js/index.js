@@ -87,5 +87,22 @@ async function iniciar(){
     console.log("Vida : ", r_horda1.vida)
     console.log("Moedas : ", r_horda1.moedas)
 
+    const horda2 = Object.freeze([
+        {nome: "GreenEyes", vida: 6, ataque: 4, x: 28, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 20, ataque: 6, x: -68, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 20, ataque: 6, x: -164, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 6, ataque: 4, x: -260, y: 124, dir: 0},
+        {nome: "Phantom", vida: 40, ataque: 8, x: -356, y: 124, dir: 0},
+    ])
+
+    // ini: inimigo que já está na tela
+    const ini2 = horda2.slice(0, 1)
+    // final: inimigos que ainda vão aparecer
+    const final2 = horda2.slice(1, horda2.length)
+
+    //resultado da primeira horda, que começou com 10 de vida
+    const r_horda2 = await horda(ini2, 10, escolha1.moedas, final2, escolha1.defensores)
+    console.log("Vida : ", r_horda2.vida)
+    console.log("Moedas : ", r_horda2.moedas)
 }
 iniciar()
