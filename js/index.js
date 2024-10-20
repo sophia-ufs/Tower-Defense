@@ -108,5 +108,6 @@ async function iniciar(){
     console.log("Vida : ", r_horda2.vida)
     console.log("Moedas : ", r_horda2.moedas)
 }
+document.getElementById('overlay').style.display = 'none'
 iniciar ()
 });

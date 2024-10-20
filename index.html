@@ -65,7 +65,7 @@
         }
 
         #startButton {
-            background-color: #ffcc00;
+            background-color: #14bdd3;
             color: white;
             margin-top: 10px;
             padding: 15px 30px;
@@ -85,7 +85,7 @@
         }
 
         #startButton:hover {
-            background-color: #15ff00;
+            background-color: #29c91a;
             box-shadow: 0 7px #555555;
         }
 
@@ -95,6 +95,20 @@
             transform: translateY(-50px, -46px);
         }
         
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 960px;
+            height: 576px;
+            background-image: url('https://i.pinimg.com/originals/e5/17/46/e517463ea02e0cc9b2a7a270f1caca6c.gif'); /* Coloque a URL da imagem de fundo */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +119,7 @@
         <canvas id="canvas_mapa"></canvas>
         <canvas id="dcv" width="960" height="576"></canvas>
         <button id="startButton">Iniciar Jogo</button>
+        <div id="overlay">
 
     </div>
 

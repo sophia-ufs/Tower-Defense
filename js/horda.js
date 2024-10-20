@@ -129,7 +129,7 @@ const draw_invasor = (invasores) => {
 // Função para desenhar a barra de vida acima do invasor
 const draw_healthBar = (inv) => {
     const maxWidth = 48; //Largura máxima da barrinha de vida
-    const maxLife = 20; // Vida máxima
+    const maxLife = 40; // Vida máxima
     const healthPercentage = inv.vida / maxLife; // Percentual de vida (assumindo vida máxima aleatória de 20 para baixo)
 
     // Definindo cor: verde > amarelo > vermelho
