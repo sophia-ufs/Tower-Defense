@@ -102,16 +102,6 @@ const ataque_defensores = ([def, ...resto], inv_curr, ganho = 0) => {
     }
 }
 
-const draw_invasor_frame = (invasor, frame, sprite) => {
-    const largura = sprite.width/3; 
-    const altura = sprite.height; 
-
-    const sx = frame * largura;
-    const sy = 0; 
-
-    d.drawImage(sprite, sx, sy, largura, altura, invasor.x, invasor.y, 64, 64);
-}
-
 const draw_invasor = (invasores, ind) => {
 
     const spriteInvasor1 = document.getElementById('GreenEyes')
@@ -122,11 +112,11 @@ const draw_invasor = (invasores, ind) => {
 
     invasores.forEach(inv => {
         if (inv.nome === "GreenEyes") {
-            draw_invasor_frame(inv, ind, spriteInvasor1)
+            draw_frame(inv, ind, spriteInvasor1, 3, 64)
         }else if (inv.nome === "RedEyes"){
-            draw_invasor_frame(inv, ind, spriteInvasor2)
+            draw_frame(inv, ind, spriteInvasor2, 3, 64)
         } else {
-            draw_invasor_frame(inv, ind, spriteInvasor3)
+            draw_frame(inv, ind, spriteInvasor3, 3, 64)
         }
         draw_healthBar(inv);
     })

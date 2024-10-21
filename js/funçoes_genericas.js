@@ -40,3 +40,11 @@ const drawVida_Moeda = (vida, moeda) => {
     d.fillText('Vida: ' + vida, 887, 410) // Posição x = 810, y = 10 (ajuste conforme necessário)
     d.fillText('Moedas: ' + moeda, 887, 430)
 }
+
+const draw_frame = (pers, frame, sprite, qtd, sz) => {
+    const largura = sprite.width/qtd; 
+    const altura = sprite.height; 
+    const sx = frame * largura;
+    const sy = 0; 
+    d.drawImage(sprite, sx, sy, largura, altura, pers.x, pers.y, sz, sz);
+}
