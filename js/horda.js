@@ -109,21 +109,24 @@ const draw_invasor_frame = (invasor, frame, sprite) => {
     const sx = frame * largura;
     const sy = 0; 
 
-    d.drawImage(sprite, sx, sy, largura, altura, invasor.x, invasor.y, 48, 48);
+    d.drawImage(sprite, sx, sy, largura, altura, invasor.x, invasor.y, 64, 64);
 }
 
 const draw_invasor = (invasores, ind) => {
 
     const spriteInvasor1 = document.getElementById('GreenEyes')
     const spriteInvasor2 = document.getElementById('RedEyes')
+    const spriteInvasor3 = document.getElementById('Phantom')
 
     d.clearRect(0, 0, dcv.width, dcv.height); // Limpa o canvas
 
     invasores.forEach(inv => {
         if (inv.nome === "GreenEyes") {
-            draw_invasor_frame(inv, ind, spriteInvasor1);
-        }else {
-            draw_invasor_frame(inv, ind, spriteInvasor2);
+            draw_invasor_frame(inv, ind, spriteInvasor1)
+        }else if (inv.nome === "RedEyes"){
+            draw_invasor_frame(inv, ind, spriteInvasor2)
+        } else {
+            draw_invasor_frame(inv, ind, spriteInvasor3)
         }
         draw_healthBar(inv);
     })
