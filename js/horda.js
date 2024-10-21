@@ -112,7 +112,6 @@ const draw_invasor_frame = (invasor, frame, sprite) => {
     d.drawImage(sprite, sx, sy, largura, altura, invasor.x, invasor.y, 48, 48);
 }
 
-// Função principal para desenhar os invasores com animação de sprites
 const draw_invasor = (invasores, ind) => {
 
     const spriteInvasor1 = new Image();
