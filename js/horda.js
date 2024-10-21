@@ -1,8 +1,9 @@
 // função para criar um novo invasor
-const invasor = (nome, vida, ataque, x, y, dir) => {
+const invasor = (nome, vida, tot_vida, ataque, x, y, dir) => {
     return {
         nome: nome,
         vida: vida,
+        tot_vida : tot_vida,
         ataque : ataque,
         x : x,
         y : y,
@@ -46,10 +47,10 @@ const ultrapassou = (acc, inv) => {
 /* converte o valor que representa a direção do movimento de um invasor
  em quanto deve ser somado no x e no y da posição dele */
 const conv_dir = (dir) => {
-    if(dir == 0) return {x: 48, y: 0} // direita
-    else if(dir == 1) return {x: -48, y: 0} //esquerda
-    else if(dir == 2) return {x: 0, y: 48} // baixo
-    else return {x: 0, y: -48} //cima
+    if(dir == 0) return {x: 6, y: 0} // direita
+    else if(dir == 1) return {x: -6, y: 0} //esquerda
+    else if(dir == 2) return {x: 0, y: 6} // baixo
+    else return {x: 0, y: -6} //cima
 }
 
 /* função para ver se o invasor esta sobre um ponto de referencia,
@@ -68,7 +69,7 @@ const updtPos = (inv) => {
     const mov = inv.map((curr) => {
         const n_dir = updtDir(curr.x, curr.y, curr.dir)
         const change = conv_dir(n_dir)
-        return invasor(curr.nome, curr.vida, curr.ataque, 
+        return invasor(curr.nome, curr.vida, curr.tot_vida, curr.ataque, 
                        curr.x + change.x, curr.y + change.y, n_dir)
     })
 
@@ -91,7 +92,7 @@ const ataque_defensores = ([def, ...resto], inv_curr, ganho = 0) => {
         // para def ( o defensor atual ) atualizo a vida de todos que ele alcança
         const upd_vida = inv_curr.map(inv => {
             if(alcança(def, inv)){
-                return invasor(inv.nome, inv.vida - def.ataque, inv.ataque, inv.x, inv.y, inv.dir)
+                return invasor(inv.nome, inv.vida - def.ataque, inv.tot_vida, inv.ataque, inv.x, inv.y, inv.dir)
             }else return inv
         })
 
@@ -129,8 +130,8 @@ const draw_invasor = (invasores) => {
 // Função para desenhar a barra de vida acima do invasor
 const draw_healthBar = (inv) => {
     const maxWidth = 48; //Largura máxima da barrinha de vida
-    const maxLife = 40; // Vida máxima
-    const healthPercentage = inv.vida / maxLife; // Percentual de vida (assumindo vida máxima aleatória de 20 para baixo)
+    const maxLife = inv.tot_vida // Vida máxima
+    const healthPercentage = inv.vida / maxLife; // Percentual de vida 
 
     // Definindo cor: verde > amarelo > vermelho
     const color = healthPercentage > 0.5 ? 'green' :
@@ -165,7 +166,7 @@ const horda = async (inv_curr, vida, moedas, inv_fora, def) => {
     drawVida(vida)
 
     // Adiciona um pequeno atraso para dar tempo para os inimigos aparecerem
-    await delay(500); // Meio segundo de pausa entre os movimentos
+    await delay(100); // Meio segundo de pausa entre os movimentos
 
     if (inv_curr.length == 0 || vida <= 0) { // Caso base: Sem invasores ou jogador perdeu todas as vidas
         return {vida: vida, moedas: moedas};

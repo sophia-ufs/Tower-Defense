@@ -73,11 +73,11 @@ async function iniciar(){
 
     //inimigos da horda 1
     const horda1 = Object.freeze([
-        {nome: "GreenEyes", vida: 3, ataque: 2, x: 28, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 10, ataque: 3, x: -68, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 10, ataque: 3, x: -164, y: 124, dir: 0},
-        {nome: "GreenEyes", vida: 3, ataque: 2, x: -260, y: 124, dir: 0},
-        {nome: "Phantom", vida: 20, ataque: 4, x: -356, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 3, tot_vida: 3, ataque: 2, x: 28, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 10, tot_vida: 10, ataque: 3, x: -68, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 10, tot_vida: 10, ataque: 3, x: -164, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 3, tot_vida : 3, ataque: 2, x: -260, y: 124, dir: 0},
+        {nome: "Phantom", vida: 20, tot_vida : 20, ataque: 4, x: -356, y: 124, dir: 0},
     ])
 
     // ini: inimigo que já está na tela
@@ -91,11 +91,11 @@ async function iniciar(){
     console.log("Moedas : ", r_horda1.moedas)
 
     const horda2 = Object.freeze([
-        {nome: "GreenEyes", vida: 6, ataque: 4, x: 28, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 20, ataque: 6, x: -68, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 20, ataque: 6, x: -164, y: 124, dir: 0},
-        {nome: "GreenEyes", vida: 6, ataque: 4, x: -260, y: 124, dir: 0},
-        {nome: "Phantom", vida: 40, ataque: 8, x: -356, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 6, tot_vida: 6, ataque: 4, x: 28, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 20, tot_vida : 20, ataque: 6, x: -68, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 20, tot_vida: 20, ataque: 6, x: -164, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 6, tot_vida: 6, ataque: 4, x: -260, y: 124, dir: 0},
+        {nome: "Phantom", vida: 40, tot_vida: 40, ataque: 8, x: -356, y: 124, dir: 0},
     ])
 
     // ini: inimigo que já está na tela
