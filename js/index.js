@@ -70,11 +70,11 @@ const iniciar = async () =>{
 
     //inimigos da horda 1
     const horda1 = Object.freeze([
-        {nome: "GreenEyes", vida: 10, tot_vida: 10, ataque: 2, x: 28, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 20, tot_vida: 20, ataque: 3, x: -68, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 20, tot_vida: 20, ataque: 3, x: -164, y: 124, dir: 0},
-        {nome: "GreenEyes", vida: 10, tot_vida : 10, ataque: 2, x: -260, y: 124, dir: 0},
-        {nome: "Phantom", vida: 40, tot_vida : 40, ataque: 4, x: -356, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: 28, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -68, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -164, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 50, tot_vida : 50, ataque: 2, x: -260, y: 124, dir: 0},
+        {nome: "Phantom", vida: 120, tot_vida : 120, ataque: 4, x: -356, y: 124, dir: 0},
     ])
 
     // ini: inimigo que já está na tela
@@ -90,14 +90,14 @@ const iniciar = async () =>{
     const escolha2 = await escolhaDefensores(5, r_horda1.moedas, escolha1.defensores, escolha1.posicoes, pers_disponiveis)
 
     const horda2 = Object.freeze([
-        {nome: "GreenEyes", vida: 10, tot_vida: 10, ataque: 2, x: 28, y: 124, dir: 0},
-        {nome: "GreenEyes", vida: 10, tot_vida: 10, ataque: 2, x: -68, y: 124, dir: 0},
-        {nome: "GreenEyes", vida: 10, tot_vida: 10, ataque: 2, x: -164, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 20, tot_vida: 20, ataque: 3, x: -356, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 20, tot_vida: 20, ataque: 3, x: -414, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 20, tot_vida: 20, ataque: 3, x: -472, y: 124, dir: 0},
-        {nome: "Phantom", vida: 40, tot_vida : 40, ataque: 4, x: -530, y: 124, dir: 0},
-        {nome: "Phantom", vida: 40, tot_vida : 40, ataque: 4, x: -588, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: 28, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: -68, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: -164, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -356, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -414, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -472, y: 124, dir: 0},
+        {nome: "Phantom", vida: 120, tot_vida : 120, ataque: 4, x: -530, y: 124, dir: 0},
+        {nome: "Phantom", vida: 120, tot_vida : 120, ataque: 4, x: -588, y: 124, dir: 0},
     ])
 
     // ini: inimigo que já está na tela
