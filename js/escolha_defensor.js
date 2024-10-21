@@ -14,7 +14,7 @@ const defensor = (nome, ataque, custo, x, y, alcance) => {
 const pers_disponiveis = [
     defensor("Defensor 1", 1, 1, pos_pers1[4].x, pos_pers1[4].y, 150),
     defensor("Defensor 2", 2, 2, pos_pers1[10].x, pos_pers1[10].y, 100),
-    defensor("Defensor 3", 3, 3, pos_pers1[16].x, pos_pers1[16].y, 75)
+    defensor("Defensor 3", 3, 3, pos_pers1[16].x, pos_pers1[16].y, 80)
 ]
 
 /* 
@@ -100,10 +100,10 @@ ldef : lista de defensores escolhidos até ent
 lpos : lista de posições onde se pode alocar defensores
 lpers : lista de defensores que se pode escolher
 */
-const escolhaDefensores = async (qtd, moedas, ldef, lpos, lpers) => {
+const escolhaDefensores = async (qtd, moedas, ldef, lpos, lpers, vida) => {
     d.clearRect(0, 0, dcv.width, dcv.height) // limpa o canvas 
     draw_defensor(ldef) // desenha os defensores
-
+    drawVida_Moeda(vida, moedas)
     if(qtd == 0){ // caso base 
         console.log("Acabou a qtd de escolhas")
         return{
@@ -140,12 +140,12 @@ const escolhaDefensores = async (qtd, moedas, ldef, lpos, lpers) => {
             const n_moedas = moedas - pers.custo
             const n_ldef = adicionar(ldef, n_def)
 
-            return await escolhaDefensores(qtd - 1, n_moedas, n_ldef, n_lpos, lpers);
+            return await escolhaDefensores(qtd - 1, n_moedas, n_ldef, n_lpos, lpers, vida);
         }else{ // se a pos esta ocupada, vou tirar o personagem alocado nela
             const pers = achar(coord_pos, ldef)[0] // acho quem é esse personagem
             const n_moedas = pers.custo*0.25 + moedas // 25% de cashback do custo do personagem
             const n_ldef = remover(ldef, pers) // removo da lista de defensores
-            return await escolhaDefensores(qtd, n_moedas, n_ldef, n_lpos, lpers)
+            return await escolhaDefensores(qtd, n_moedas, n_ldef, n_lpos, lpers, vida)
         }
     }
 }

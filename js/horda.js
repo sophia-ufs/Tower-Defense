@@ -148,18 +148,6 @@ const draw_healthBar = (inv) => {
     d.fillRect(inv.x, inv.y - 12, maxWidth * healthPercentage, 8); // Tamanhos de largura e comprimento da barra de vida acima do invasor
 }
 
-// Função para desenhar a vida do jogador na tela
-const drawVida = (vida) => {
-    d.clearRect(800, 0, 160, 40); // Limpa a área onde a vida será desenhada (ajuste a posição se necessário)
-    
-    // Desenha o texto da vida do jogador
-    d.fillStyle = 'black';
-    d.font = '20px Arial';
-    d.textAlign = 'right';
-    d.textBaseline = 'top';
-    d.fillText('Vida: ' + vida, 810, 10); // Posição x = 810, y = 10 (ajuste conforme necessário)
-}
-
 // Função de atraso para dar tempo de renderização entre os ciclos
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -169,7 +157,7 @@ const horda = async (inv_curr, vida, moedas, inv_fora, def, ind = 0) => {
     // Desenho os invasores e os defensores
     draw_invasor(inv_curr, ind)
     draw_defensor(def)
-    drawVida(vida)
+    drawVida_Moeda(vida, moedas)
 
     // Adiciona um pequeno atraso para dar tempo para os inimigos aparecerem
     await delay(100); // Meio segundo de pausa entre os movimentos

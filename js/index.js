@@ -66,7 +66,7 @@ startButton.addEventListener('click', () => {
 const iniciar = async () =>{
 
     //resultado da primeira escolha do jogador, podendo adicionar 5 defensores com 6 moedas disponíveis
-    const escolha1 = await escolhaDefensores(5, 6, [], pos_defensor1, pers_disponiveis) 
+    const escolha1 = await escolhaDefensores(5, 6, [], pos_defensor1, pers_disponiveis, 10) 
 
     //inimigos da horda 1
     const horda1 = Object.freeze([
@@ -84,10 +84,8 @@ const iniciar = async () =>{
 
     //resultado da primeira horda, que começou com 10 de vida
     const r_horda1 = await horda(ini, 10, escolha1.moedas, final, escolha1.defensores)
-    console.log("Vida : ", r_horda1.vida)
-    console.log("Moedas : ", r_horda1.moedas)
 
-    const escolha2 = await escolhaDefensores(5, r_horda1.moedas, escolha1.defensores, escolha1.posicoes, pers_disponiveis)
+    const escolha2 = await escolhaDefensores(5, r_horda1.moedas, escolha1.defensores, escolha1.posicoes, pers_disponiveis, r_horda1.vida)
 
     const horda2 = Object.freeze([
         {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: 28, y: 124, dir: 0},

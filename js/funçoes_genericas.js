@@ -27,3 +27,16 @@ const indef = x => typeof x == 'undefined'
 
 // conversão das coordenadas para um registro
 const coord = (x, y) => ({x:x, y:y})
+
+
+const drawVida_Moeda = (vida, moeda) => {
+    d.clearRect(820, 410, 160, 40)
+    d.clearRect(820, 430, 160, 40) 
+    // Desenha o texto da vida do jogador
+    d.fillStyle = 'black';
+    d.font = '20px Arial';
+    d.textAlign = 'center';
+    d.textBaseline = 'top';
+    d.fillText('Vida: ' + vida, 887, 410) // Posição x = 810, y = 10 (ajuste conforme necessário)
+    d.fillText('Moedas: ' + moeda, 887, 430)
+}
