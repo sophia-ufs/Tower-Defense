@@ -5,6 +5,10 @@ const c = canvas_m.getContext('2d')
 // canvas para os defensores e invasores -> fica sendo redesenhado
 const dcv = document.getElementById('dcv');
 const d = dcv.getContext('2d');
+
+const tcanvas = document.getElementById('texto');
+const t = tcanvas.getContext('2d');
+
 const startButton = document.getElementById('startButton');
 
 c.fillStyle = 'bisque'
@@ -67,7 +71,7 @@ const iniciar = async () =>{
 
     //resultado da primeira escolha do jogador, podendo adicionar 5 defensores com 6 moedas disponíveis
     const escolha1 = await escolhaDefensores(5, 6, [], pos_defensor1, pers_disponiveis, 10) 
-
+    exibirComando(t, "Hora da Horda!", 10, 20)
     //inimigos da horda 1
     const horda1 = Object.freeze([
         {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: 28, y: 124, dir: 0},

@@ -102,7 +102,6 @@ const escolhaDefensores = async (qtd, moedas, ldef, lpos, lpers, vida) => {
     draw_defensor(ldef) // desenha os defensores
     drawVida_Moeda(vida, moedas)
     if(qtd == 0){ // caso base 
-        console.log("Acabou a qtd de escolhas")
         return{
             moedas: moedas,
             defensores : ldef,
@@ -110,14 +109,13 @@ const escolhaDefensores = async (qtd, moedas, ldef, lpos, lpers, vida) => {
         }
     }else if ( moedas < 1 ){ // caso base
         // considerando que o defensor mais barato custa 1
-        console.log("Dinheiro insuficiente")
         return{
             moedas: moedas,
             defensores : ldef,
             posicoes : lpos
         }
     }else{
-        console.log("Escolha a posição")
+        exibirComando(t, "Escolha a Posição", 10, 20)
         const coord_pos = await capturaClique(lpos) // coordenadas do clique
         // pos representa o quadrado em que a coord_pos está inclusa
         const pos = achar(coord_pos, lpos)[0]
@@ -128,6 +126,7 @@ const escolhaDefensores = async (qtd, moedas, ldef, lpos, lpers, vida) => {
 
         // se a posição n estava ocupada, ent tenho que escolher o personagem para ocupá-la
         if(pos.ocupado == false){
+            exibirComando(t, "Escolha o Personagem", 10, 20)
             const coord_pers = await capturaClique(lpers, moedas) // coordenadas do clique
             // pers representa o personagem do quadrado em que a coord_pos está inclusa
             const pers = achar(coord_pers, lpers)[0]

@@ -7,17 +7,24 @@
     <style>
         
         #canvas_mapa {
-            position: absolute; /* Permite sobreposição */
+            position: absolute; 
             top: 0;
             left: 0;
-            z-index: 1; /* Coloca este canvas abaixo */
+            z-index: 1; 
         }
 
         #dcv {
-            position: absolute; /* Permite sobreposição */
+            position: absolute; 
             top: 0;
             left: 0;
-            z-index: 2; /* Coloca este canvas acima */
+            z-index: 3;
+        }
+
+        #texto {
+            position: absolute; 
+            top: 0;
+            left: 0;
+            z-index: 2; 
         }
 
         .enemy-health-bar {
@@ -138,6 +145,7 @@
         <!-- Canvas do jogo -->
         <canvas id="canvas_mapa" width="960" height="576"></canvas>
         <canvas id="dcv" width="960" height="576"></canvas>
+        <canvas id="texto" width="960" height="576"></canvas>
         <button id="startButton">Iniciar Jogo</button>
         <div id="overlay">
             <div id="gameTitle">
