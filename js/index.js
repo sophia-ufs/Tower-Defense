@@ -104,7 +104,7 @@ async function iniciar(){
     const final2 = horda2.slice(1, horda2.length)
 
     //resultado da primeira horda, que começou com 10 de vida
-    const r_horda2 = await horda(ini2, 10, escolha1.moedas, final2, escolha1.defensores)
+    const r_horda2 = await horda(ini2, r_horda1.vida, r_horda1.moedas, final2, escolha1.defensores)
     console.log("Vida : ", r_horda2.vida)
     console.log("Moedas : ", r_horda2.moedas)
 }
