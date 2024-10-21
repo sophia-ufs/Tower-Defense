@@ -12,9 +12,9 @@ const defensor = (nome, ataque, custo, x, y, alcance) => {
 
 // defensores disponíveis para se escolher
 const pers_disponiveis = [
-    defensor("Defensor 1", 1, 1, pos_pers1[0].x, pos_pers1[0].y, 200),
-    defensor("Defensor 2", 2, 2, pos_pers1[3].x, pos_pers1[3].y, 150),
-    defensor("Defensor 3", 5, 5, pos_pers1[6].x, pos_pers1[6].y, 100)
+    defensor("Defensor 1", 1, 1, pos_pers1[0].x, pos_pers1[0].y, 150),
+    defensor("Defensor 2", 2, 2, pos_pers1[3].x, pos_pers1[3].y, 100),
+    defensor("Defensor 3", 3, 3, pos_pers1[6].x, pos_pers1[6].y, 75)
 ]
 
 /* 
@@ -39,6 +39,14 @@ const posicao_valida = (x, y, lpos, param = -1) => {
 
 const draw_defensor = (defensores) => {
     defensores.forEach(def => {
+
+        d.beginPath();
+        d.arc(def.x + 24, def.y + 24, def.alcance, 0, 2 * Math.PI); // `def.alcance` deve ser definido para cada defensor
+        d.fillStyle = 'rgba(255, 255, 255, 0.1)'; // Círculo de alcance com transparência
+        d.fill(); // Preenche o círculo
+        d.strokeStyle = 'rgba(0, 0, 0, 0.2)'; // Cor da borda do círculo de alcance
+        d.stroke(); // Desenha a borda do círculo
+
         if(def.nome == "Defensor 1"){
             d.fillStyle = 'rgba(0, 0, 500, 0.5)' 
             d.fillRect(def.x, def.y, 48, 48);  
