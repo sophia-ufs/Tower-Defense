@@ -6,9 +6,6 @@ const c = canvas_m.getContext('2d')
 const dcv = document.getElementById('dcv');
 const d = dcv.getContext('2d');
 const startButton = document.getElementById('startButton');
-    
-canvas_m.width = 960
-canvas_m.height = 576
 
 c.fillStyle = 'bisque'
 c.fillRect(0, 0, canvas_m.width, canvas_m.height)
