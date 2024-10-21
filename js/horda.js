@@ -104,42 +104,17 @@ const ataque_defensores = ([def, ...resto], inv_curr, ganho = 0) => {
 
 // desenhar os invasores na tela
 const draw_invasor = (invasores) => {
-    
-    const loadImage = (src) => {
-        return new Promise((resolve, reject) => {
-            const img = new Image()
-            img.onload = () => resolve(img)
-            img.onerror = (err) => reject(err)
-            img.src = src
-        })
-    }
+    d.clearRect(0, 0, dcv.width, dcv.height); // Limpa o canvas primeiro
 
-    const main = async () => {
-        const invasor1Image = await loadImage('img/GreenEyes.png')
-        const invasor2Image = await loadImage('img/RedEyes.png')
-        const invasor3Image = await loadImage('caminho_para_sprite_invasor_default.png')
-    
-        invasores.forEach(inv => {
-            if (inv.nome == "GreenEyes") {
-                d.drawImage(invasor1Image, inv.x, inv.y, 48, 48)
-            } else if (inv.nome == "RedEyes") {
-                d.drawImage(invasor2Image, inv.x, inv.y, 48, 48)
-            } else {
-                d.drawImage(invasor3Image, inv.x, inv.y, 48, 48)
-            }
-        })
-    }
-    
-    let x = 0
-    let y = 100
-    const update = () => {
-        x += 1
-        if (x < canvas.width) {
-            draw_invasor()
-            requestAnimationFrame(update)
-
-    }
-        update()
+    invasores.forEach(inv => {
+        if (inv.nome == "Invasor 1") {
+            d.fillStyle = 'green';
+        } else if (inv.nome == "Invasor 2") {
+            d.fillStyle = 'blue';
+        }else{
+            d.fillStyle = 'red';
+        }
+        d.fillRect(inv.x, inv.y, 48, 48);
 
         d.fillStyle = 'white';
         d.font = '12x Arial Black';
@@ -148,8 +123,8 @@ const draw_invasor = (invasores) => {
         d.fillText(inv.vida, inv.x + 24, inv.y + 24);
     
         draw_healthBar(inv);
-        main()
-    }
+    })
+
 }
 
 // Função para desenhar a barra de vida acima do invasor
