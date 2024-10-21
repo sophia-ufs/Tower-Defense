@@ -65,10 +65,10 @@
         }
 
         #startButton {
-            background-color: #14bdd3;
+            background-color: #ff67b3;
             color: white;
             margin-top: 10px;
-            padding: 15px 30px;
+            padding: 20px 35px;
             font-size: 24px;
             font-family: 'Arial', sans-serif;
             font-weight: bold;
@@ -76,22 +76,22 @@
             border-radius: 15px;
             cursor: pointer;
             position: absolute;
-            box-shadow: 0 5px #a5a0a0;
+            box-shadow: 0 7px #a5a0a0;
             transition: all 0.3s ease;
-            top: 55%;
+            top: 49%;
             left: 35%;
             transform: translate(-50%, -50%);
             z-index: 10;
         }
 
         #startButton:hover {
-            background-color: #29c91a;
+            background-color: #41b336;
             box-shadow: 0 7px #555555;
         }
 
         #startButton:active {
             background-color: #ff8800;
-            box-shadow: 0 2px #666;
+            box-shadow: 0 5px #666;
             transform: translateY(-50px, -46px);
         }
         
@@ -101,13 +101,30 @@
             left: 0;
             width: 960px;
             height: 576px;
-            background-image: url('https://i.pinimg.com/originals/e5/17/46/e517463ea02e0cc9b2a7a270f1caca6c.gif'); /* Coloque a URL da imagem de fundo */
+            background-image: url('https://preview.redd.it/a-couple-of-parallax-backgrounds-that-ive-been-working-on-v0-vf7111evda7b1.png?width=960&format=png&auto=webp&s=49d712315017d6a9824fbcd249b6fb09679a46f3'); /* Coloque a URL da imagem de fundo */
             background-size: cover;
             background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1;
+        }
+
+        #gameTitle {
+            position: relative;
+            font-size: 50px;
+            margin-top: -170px;
+            font-family: 'Harlow Solid Italic', sans-serif;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            transition: color 0.3s ease;
+            text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .forestgirls {
+            color: #ff67b3;
         }
     </style>
 </head>
@@ -120,8 +137,10 @@
         <canvas id="dcv" width="960" height="576"></canvas>
         <button id="startButton">Iniciar Jogo</button>
         <div id="overlay">
+            <div id="gameTitle">
+                <span class="forestgirls">The ForestGirls TD</span>
 
-    </div>
+            </div>
 
     <!-- Script para o jogo -->
     <script src="js/funçoes_genericas.js"></script>
