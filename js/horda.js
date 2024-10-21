@@ -114,11 +114,8 @@ const draw_invasor_frame = (invasor, frame, sprite) => {
 
 const draw_invasor = (invasores, ind) => {
 
-    const spriteInvasor1 = new Image();
-    spriteInvasor1.src = 'img/GreenEyes.png'; 
-    
-    const spriteInvasor2 = new Image();
-    spriteInvasor2.src = 'img/RedEyes.png'
+    const spriteInvasor1 = document.getElementById('GreenEyes')
+    const spriteInvasor2 = document.getElementById('RedEyes')
 
     d.clearRect(0, 0, dcv.width, dcv.height); // Limpa o canvas
 
