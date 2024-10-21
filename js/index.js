@@ -89,13 +89,8 @@ async function iniciar(){
     const r_horda1 = await horda(ini, 10, escolha1.moedas, final, escolha1.defensores)
     console.log("Vida : ", r_horda1.vida)
     console.log("Moedas : ", r_horda1.moedas)
-}
-document.getElementById('overlay').style.display = 'none'
-iniciar ()
-});
 
-async function continuar () {
-    await iniciar()
+    const escolha2 = await escolhaDefensores(5, r_horda1.moedas, [escolha1.defensores], escolha1.posicoes, pers_disponiveis)
 
     const horda2 = Object.freeze([
         {nome: "GreenEyes", vida: 3, tot_vida: 3, ataque: 2, x: 28, y: 124, dir: 0},
@@ -118,3 +113,6 @@ async function continuar () {
     console.log("Vida : ", r_horda2.vida)
     console.log("Moedas : ", r_horda2.moedas)
 }
+document.getElementById('overlay').style.display = 'none'
+iniciar ()
+});
