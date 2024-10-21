@@ -119,7 +119,7 @@ const draw_invasor = (invasores) => {
         const invasor2Image = await loadImage('img/RedEyes.png')
         const invasor3Image = await loadImage('caminho_para_sprite_invasor_default.png')
     
-        inv.forEach(inv => {
+        invasores.forEach(inv => {
             if (inv.nome == "GreenEyes") {
                 d.drawImage(invasor1Image, inv.x, inv.y, 48, 48)
             } else if (inv.nome == "RedEyes") {
@@ -134,14 +134,23 @@ const draw_invasor = (invasores) => {
     let y = 100
     const update = () => {
         x += 1
+        if (x < canvas.width) {
             draw_invasor()
             requestAnimationFrame(update)
-    }
 
-        draw_healthBar(inv);
+    }
         update()
+
+        d.fillStyle = 'white';
+        d.font = '12x Arial Black';
+        d.textAlign = 'center';
+        d.textBaseline = 'middle';
+        d.fillText(inv.vida, inv.x + 24, inv.y + 24);
+    
+        draw_healthBar(inv);
         main()
     }
+}
 
 // Função para desenhar a barra de vida acima do invasor
 const draw_healthBar = (inv) => {
