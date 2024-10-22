@@ -133,6 +133,36 @@
         .blossondefense {
             color: #ff67b3;
         }
+
+        #tutorial-Button {
+            background-color: #ff67b3;
+            color: rgb(255, 255, 255);
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-family: 'Rockwell', sans-serif;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            position: absolute;
+            box-shadow: 0 7px #a5a0a0;
+            transition: all 0.3s ease;
+            top: 5%;
+            left: 65%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        #tutorial-text {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: -29%;
+            left: 25%;
+            z-index: 30;
+        }
     </style>
 </head>
 <body>
@@ -146,6 +176,17 @@
         <canvas id="canvas_mapa" width="960" height="576"></canvas>
         <canvas id="dcv" width="960" height="576"></canvas>
         <canvas id="texto" width="960" height="576"></canvas>
+        <button id="tutorial-Button">Tutorial</button>
+        <div id="tutorial-text" style="display: none;">
+            <p>Boas vindas ao Blosson Defense!</p>
+            <p>Objetivo: Defenda sua floresta contra hordas de invasores.</p>
+            <p>Como jogar:</p>
+            <ul>
+                <li>Use moedas para adicionar defensores.</li>
+                <li>Selecione a posição, depois escolha o defensor e lute contra os invasores.</li>
+                <li>Atenção: sua vida diminuirá se os invasores chegarem ao final do caminho.</li>
+            </ul>
+        </div> 
         <button id="startButton">Iniciar Jogo</button>
         <div id="overlay">
             <div id="gameTitle">

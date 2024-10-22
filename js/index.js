@@ -11,6 +11,19 @@ const t = tcanvas.getContext('2d');
 
 const startButton = document.getElementById('startButton');
 
+// Adicionando o botão de tutorial
+const tutorialButton = document.getElementById('tutorial-Button');
+const tutorialText = document.getElementById('tutorial-text');
+
+// Adicionando um evento de clique no botão de tutorial
+tutorialButton.addEventListener('click', function() {
+    if (tutorialText.style.display === 'none') {
+        tutorialText.style.display = 'block'; // Mostrar o texto
+    } else {
+        tutorialText.style.display = 'none'; // Esconder o texto
+    }
+});
+
 c.fillStyle = 'bisque'
 c.fillRect(0, 0, canvas_m.width, canvas_m.height)
 
@@ -65,7 +78,7 @@ image.src = 'img/mapa01.png'
 
 startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
-
+    tutorialButton.style.display = 'none'; // Esconder o botão de tutorial
 // função de iniciar o jogo
 const iniciar = async () =>{
 
