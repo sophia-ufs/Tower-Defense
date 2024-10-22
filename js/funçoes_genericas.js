@@ -28,7 +28,6 @@ const indef = x => typeof x == 'undefined'
 // conversão das coordenadas para um registro
 const coord = (x, y) => ({x:x, y:y})
 
-
 const drawVida_Moeda = (vida, moeda) => {
     d.clearRect(820, 410, 160, 40)
     d.clearRect(820, 430, 160, 40) 

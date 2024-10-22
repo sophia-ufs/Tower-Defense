@@ -12,9 +12,9 @@ const defensor = (nome, ataque, custo, x, y, alcance) => {
 
 // defensores disponíveis para se escolher
 const pers_disponiveis = [
-    defensor("Defensor 1", 1, 1, pos_pers1[3].x, pos_pers1[3].y, 150),
-    defensor("Defensor 2", 2, 2, pos_pers1[9].x, pos_pers1[9].y, 100),
-    defensor("Defensor 3", 3, 3, pos_pers1[15].x, pos_pers1[15].y, 80)
+    defensor("Defensor 1", 1, 1, 821, 56, 150),
+    defensor("Defensor 2", 2, 2, 821, 140, 100),
+    defensor("Defensor 3", 3, 3, 821, 220, 80)
 ]
 
 /* 
@@ -61,6 +61,22 @@ const draw_defensor = (defensores, ind = 0) => {
     })
 }
 
+const draw_botao_horda = () => {
+    d.fillStyle = 'rgb(34,139,34)' 
+    d.fillRect(865, 500, 48, 48)
+
+    d.strokeStyle = 'black'
+    d.lineWidth = 2 
+    d.strokeRect(865, 500, 48, 48)
+
+    d.fillStyle = 'black'
+    d.font = '13px cursive' 
+    d.textAlign = 'center' 
+    d.textBaseline = 'middle' 
+    d.fillText("Iniciar", 865 + 24, 500 + 20) 
+    d.fillText("Horda", 865 + 24, 500 + 35) 
+}
+
 // espera o clique em uma posição válida e retorna as coordenadas de onde esse clique aconteceu
 const capturaClique = (lpos, param = -1) => {
     return new Promise((resolve) => {
@@ -68,7 +84,6 @@ const capturaClique = (lpos, param = -1) => {
             const x = event.clientX - dcv.offsetLeft
             const y = event.clientY - dcv.offsetTop
             const valida = posicao_valida(x, y, lpos, param)
-            
             if(valida){
                 resolve({ x, y })
                 dcv.removeEventListener('click', handleClick)
@@ -90,18 +105,14 @@ ldef : lista de defensores escolhidos até ent
 lpos : lista de posições onde se pode alocar defensores
 lpers : lista de defensores que se pode escolher
 */
-const escolhaDefensores = async (qtd, moedas, ldef, lpos, lpers, vida) => {
-    d.clearRect(0, 0, dcv.width, dcv.height) // limpa o canvas 
-    draw_defensor(ldef) // desenha os defensores
+const escolhaDefensores = async (moedas, ldef, lpos, lpers, vida, ind = false) => {
+    d.clearRect(0, 0, dcv.width, dcv.height)  
+    
+    draw_botao_horda()
+    draw_defensor(ldef) 
     drawVida_Moeda(vida, moedas)
-    if(qtd == 0){ // caso base 
-        return{
-            moedas: moedas,
-            defensores : ldef,
-            posicoes : lpos
-        }
-    }else if ( moedas < 1 ){ // caso base
-        // considerando que o defensor mais barato custa 1
+
+    if(ind == true || moedas < 1){ // caso base 
         return{
             moedas: moedas,
             defensores : ldef,
@@ -110,30 +121,32 @@ const escolhaDefensores = async (qtd, moedas, ldef, lpos, lpers, vida) => {
     }else{
         exibirComando(t, "Escolha a Posição", 10, 20)
         const coord_pos = await capturaClique(lpos) // coordenadas do clique
-        // pos representa o quadrado em que a coord_pos está inclusa
         const pos = achar(coord_pos, lpos)[0]
+        if(pos.x == 865 && pos.y == 500){
+            return escolhaDefensores(moedas, ldef, lpos, lpers, vida, true)
+        }else{
+            // edição da situação da posição, se ocupada == true, troco para ocupada == false e vice-versa
+            const inv_pos = {x:pos.x, y:pos.y, ocupado:!pos.ocupado} 
+            const n_lpos = editar(lpos, pos, inv_pos) // lista de posiçõea atualizada
 
-        // edição da situação da posição, se ocupada == true, troco para ocupada == false e vice-versa
-        const inv_pos = {x:pos.x, y:pos.y, ocupado:!pos.ocupado} 
-        const n_lpos = editar(lpos, pos, inv_pos) // lista de posiçõea atualizada
+            // se a posição n estava ocupada, ent tenho que escolher o personagem para ocupá-la
+            if(pos.ocupado == false){
+                exibirComando(t, "Escolha o Personagem", 10, 20)
+                const coord_pers = await capturaClique(lpers, moedas) // coordenadas do clique
+                // pers representa o personagem do quadrado em que a coord_pos está inclusa
+                const pers = achar(coord_pers, lpers)[0]
+                
+                const n_def = defensor(pers.nome, pers.ataque, pers.custo, pos.x, pos.y, pers.alcance) // defensor que vai ser adicionado
+                const n_moedas = moedas - pers.custo
+                const n_ldef = adicionar(ldef, n_def)
 
-        // se a posição n estava ocupada, ent tenho que escolher o personagem para ocupá-la
-        if(pos.ocupado == false){
-            exibirComando(t, "Escolha o Personagem", 10, 20)
-            const coord_pers = await capturaClique(lpers, moedas) // coordenadas do clique
-            // pers representa o personagem do quadrado em que a coord_pos está inclusa
-            const pers = achar(coord_pers, lpers)[0]
-            
-            const n_def = defensor(pers.nome, pers.ataque, pers.custo, pos.x, pos.y, pers.alcance) // defensor que vai ser adicionado
-            const n_moedas = moedas - pers.custo
-            const n_ldef = adicionar(ldef, n_def)
-
-            return await escolhaDefensores(qtd - 1, n_moedas, n_ldef, n_lpos, lpers, vida);
-        }else{ // se a pos esta ocupada, vou tirar o personagem alocado nela
-            const pers = achar(coord_pos, ldef)[0] // acho quem é esse personagem
-            const n_moedas = pers.custo*0.25 + moedas // 25% de cashback do custo do personagem
-            const n_ldef = remover(ldef, pers) // removo da lista de defensores
-            return await escolhaDefensores(qtd, n_moedas, n_ldef, n_lpos, lpers, vida)
+                return await escolhaDefensores(n_moedas, n_ldef, n_lpos, lpers, vida, false);
+            }else{ // se a pos esta ocupada, vou tirar o personagem alocado nela
+                const pers = achar(coord_pos, ldef)[0] // acho quem é esse personagem
+                const n_moedas = pers.custo*0.25 + moedas // 25% de cashback do custo do personagem
+                const n_ldef = remover(ldef, pers) // removo da lista de defensores
+                return await escolhaDefensores(n_moedas, n_ldef, n_lpos, lpers, vida, false)
+            }
         }
     }
 }

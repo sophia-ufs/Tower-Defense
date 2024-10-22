@@ -27,52 +27,15 @@ tutorialButton.addEventListener('click', function() {
 c.fillStyle = 'bisque'
 c.fillRect(0, 0, canvas_m.width, canvas_m.height)
 
-//função para visualizar as coisas provisoriamente (para debug e teste das coisas)
-const visu_temp = () => {
-    //visualizar os pontos de referência
-    mapaUm.map( pos => {
-        c.fillStyle = 'gray' 
-        c.fillRect(pos.x, pos.y, 48, 48);  
-    })
-
+//inserção do mapa
+const image = new Image()
+image.onload = () => {
+    c.drawImage(image, 0, 0, canvas_m.width, canvas_m.height)
     // visualizar posiçoes
     pos_defensor1.map( pos => {
         c.fillStyle = 'rgba(255, 255, 255, 0.05) ' 
         c.fillRect(pos.x, pos.y, 48, 48);  
     })
-
-    //visualizar personagens para escolher
-    pers_disponiveis.map( pos => {
-
-        if(pos.nome == "Defensor 1"){
-            c.fillStyle = 'rgba(0, 0, 500, 0.5)' 
-            c.fillRect(pos.x, pos.y, 48, 48);  
-        }else if(pos.nome == "Defensor 2"){
-            c.fillStyle = 'rgba(255, 0, 0, 0.5)' 
-            c.fillRect(pos.x, pos.y, 48, 48)
-        }else{
-            c.fillStyle = 'rgba(0, 300, 0, 0.5)' 
-            c.fillRect(pos.x, pos.y, 48, 48)
-        }
-
-        c.strokeStyle = 'black'
-        c.lineWidth = 2 
-        c.strokeRect(pos.x, pos.y, 48, 48)
-
-        c.fillStyle = 'black'
-        c.font = '9px Arial' 
-        c.textAlign = 'center' 
-        c.textBaseline = 'middle' 
-        c.fillText(pos.nome, pos.x + 24, pos.y + 24) 
-    })
-    
-}
-
-//inserção do mapa
-const image = new Image()
-image.onload = () => {
-    c.drawImage(image, 0, 0, canvas_m.width, canvas_m.height)
-    visu_temp()
 }
 image.src = 'img/mapa01.png'
 
@@ -85,7 +48,7 @@ startButton.addEventListener('click', () => {
 const iniciar = async () =>{
 
     //resultado da primeira escolha do jogador, podendo adicionar 5 defensores com 6 moedas disponíveis
-    const escolha1 = await escolhaDefensores(5, 6, [], pos_defensor1, pers_disponiveis, 10) 
+    const escolha1 = await escolhaDefensores(6, [], pos_defensor1, pers_disponiveis, 10) 
     exibirComando(t, "Hora da Horda!", 10, 20)
     //inimigos da horda 1
     const horda1 = Object.freeze([
@@ -104,7 +67,7 @@ const iniciar = async () =>{
     //resultado da primeira horda, que começou com 10 de vida
     const r_horda1 = await horda(ini, 10, escolha1.moedas, final, escolha1.defensores)
 
-    const escolha2 = await escolhaDefensores(5, r_horda1.moedas, escolha1.defensores, escolha1.posicoes, pers_disponiveis, r_horda1.vida)
+    const escolha2 = await escolhaDefensores(r_horda1.moedas, escolha1.defensores, escolha1.posicoes, pers_disponiveis, r_horda1.vida)
 
     const horda2 = Object.freeze([
         {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: 28, y: 124, dir: 0},
@@ -124,8 +87,6 @@ const iniciar = async () =>{
 
     //resultado da primeira horda, que começou com 10 de vida
     const r_horda2 = await horda(ini2, r_horda1.vida, r_horda1.moedas, final2, escolha2.defensores)
-    console.log("Vida : ", r_horda2.vida)
-    console.log("Moedas : ", r_horda2.moedas)
 }
 document.getElementById('overlay').style.display = 'none'
 iniciar ()
