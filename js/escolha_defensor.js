@@ -119,7 +119,7 @@ const escolhaDefensores = async (moedas, ldef, lpos, lpers, vida, ind = false) =
             posicoes : lpos
         }
     }else{
-        exibirComando(t, "Escolha a Posição", 10, 20)
+        exibirComando(t, "Escolha a Posição", 520, 70)
         const coord_pos = await capturaClique(lpos) // coordenadas do clique
         const pos = achar(coord_pos, lpos)[0]
         if(pos.x == 865 && pos.y == 500){

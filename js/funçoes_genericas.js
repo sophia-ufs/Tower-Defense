@@ -51,6 +51,6 @@ const draw_frame = (pers, frame, sprite, qtd, sz) => {
 const exibirComando = (ctx, txt, x, y) => {
     ctx.clearRect(0, 0, tcanvas.width, tcanvas.height)
     ctx.fillStyle = 'black'; // Cor do texto
-    ctx.font = '20px Arial'; // Estilo da fonte
+    ctx.font = '30px Rockwell'; // Estilo da fonte
     ctx.fillText(txt, x, y); // Desenha o texto no canvas
 }
