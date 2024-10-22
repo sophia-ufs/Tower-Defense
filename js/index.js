@@ -79,6 +79,8 @@ image.src = 'img/mapa01.png'
 startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
     tutorialButton.style.display = 'none'; // Esconder o botão de tutorial
+    tutorialText.style.display = 'none'; // Esconder o texto do tutorial
+
 // função de iniciar o jogo
 const iniciar = async () =>{
 
