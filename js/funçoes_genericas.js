@@ -1,3 +1,5 @@
+/*Arquivo das funções que são utilizadas no código em diferentes contextos*/
+
 const remover = ( lista, elemento ) => {
     return lista.filter((x) => x != elemento )
 }
@@ -28,29 +30,32 @@ const indef = x => typeof x == 'undefined'
 // conversão das coordenadas para um registro
 const coord = (x, y) => ({x:x, y:y})
 
+
 const drawVida_Moeda = (vida, moeda) => {
     d.clearRect(820, 410, 160, 40)
     d.clearRect(820, 430, 160, 40) 
     // Desenha o texto da vida do jogador
-    d.fillStyle = 'black';
-    d.font = '20px Arial';
-    d.textAlign = 'center';
-    d.textBaseline = 'top';
+    d.fillStyle = 'black'
+    d.font = '20px Arial'
+    d.textAlign = 'center'
+    d.textBaseline = 'top'
     d.fillText('Vida: ' + vida, 887, 410) // Posição x = 810, y = 10 (ajuste conforme necessário)
     d.fillText('Moedas: ' + moeda, 887, 430)
 }
 
+// utilizada tanto para desenhar os defensores como invasores
+// exibe o frame escolhido da imagem 
 const draw_frame = (pers, frame, sprite, qtd, sz) => {
     const largura = sprite.width/qtd 
     const altura = sprite.height
     const sx = frame * largura
-    const sy = 0; 
-    d.drawImage(sprite, sx, sy, largura, altura, pers.x + (48-sz)/2, pers.y + (48-sz)/2, sz, sz);
+    const sy = 0 
+    d.drawImage(sprite, sx, sy, largura, altura, pers.x + (48-sz)/2, pers.y + (48-sz)/2, sz, sz)
 }
 
 const exibirComando = (ctx, txt, x, y) => {
     ctx.clearRect(0, 0, tcanvas.width, tcanvas.height)
-    ctx.fillStyle = 'black'; // Cor do texto
-    ctx.font = '30px Rockwell'; // Estilo da fonte
-    ctx.fillText(txt, x, y); // Desenha o texto no canvas
+    ctx.fillStyle = 'black'
+    ctx.font = '30px Rockwell'
+    ctx.fillText(txt, x, y) 
 }

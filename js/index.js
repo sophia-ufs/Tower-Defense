@@ -3,26 +3,26 @@ const canvas_m = document.getElementById('canvas_mapa')
 const c = canvas_m.getContext('2d')
 
 // canvas para os defensores e invasores -> fica sendo redesenhado
-const dcv = document.getElementById('dcv');
-const d = dcv.getContext('2d');
+const dcv = document.getElementById('dcv')
+const d = dcv.getContext('2d')
 
-const tcanvas = document.getElementById('texto');
-const t = tcanvas.getContext('2d');
+const tcanvas = document.getElementById('texto')
+const t = tcanvas.getContext('2d')
 
-const startButton = document.getElementById('startButton');
+const startButton = document.getElementById('startButton')
 
 // Adicionando o botão de tutorial
-const tutorialButton = document.getElementById('tutorial-Button');
-const tutorialText = document.getElementById('tutorial-text');
+const tutorialButton = document.getElementById('tutorial-Button')
+const tutorialText = document.getElementById('tutorial-text')
 
 // Adicionando um evento de clique no botão de tutorial
 tutorialButton.addEventListener('click', function() {
     if (tutorialText.style.display === 'none') {
-        tutorialText.style.display = 'block'; // Mostrar o texto
+        tutorialText.style.display = 'block' // Mostrar o texto
     } else {
-        tutorialText.style.display = 'none'; // Esconder o texto
+        tutorialText.style.display = 'none' // Esconder o texto
     }
-});
+})
 
 c.fillStyle = 'bisque'
 c.fillRect(0, 0, canvas_m.width, canvas_m.height)
@@ -34,15 +34,15 @@ image.onload = () => {
     // visualizar posiçoes
     pos_defensor1.map( pos => {
         c.fillStyle = 'rgba(255, 255, 255, 0.05) ' 
-        c.fillRect(pos.x, pos.y, 48, 48);  
+        c.fillRect(pos.x, pos.y, 48, 48)  
     })
 }
 image.src = 'img/mapa01.png'
 
 startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
-    tutorialButton.style.display = 'none'; // Esconder o botão de tutorial
-    tutorialText.style.display = 'none'; // Esconder o texto do tutorial
+    tutorialButton.style.display = 'none' // Esconder o botão de tutorial
+    tutorialText.style.display = 'none' // Esconder o texto do tutorial
 
 const click = () => {
     return new Promise((resolve) => {
@@ -72,7 +72,7 @@ const iniciar = async () =>{
     // final: inimigos que ainda vão aparecer
     const final = horda1.slice(1, horda1.length)
 
-    //resultado da primeira horda, que começou com 10 de vida
+    //resultado da primeira horda
     const r_horda1 = await horda(ini, 10, escolha1.moedas, final, escolha1.defensores)
 
     const escolha2 = await escolhaDefensores(r_horda1.moedas, escolha1.defensores, escolha1.posicoes, pers_disponiveis, r_horda1.vida)
@@ -93,7 +93,7 @@ const iniciar = async () =>{
     // final: inimigos que ainda vão aparecer
     const final2 = horda2.slice(1, horda2.length)
 
-    //resultado da primeira horda, que começou com 10 de vida
+    //resultado da segunda horda
     const r_horda2 = await horda(ini2, r_horda1.vida, r_horda1.moedas, final2, escolha2.defensores)
 
     const escolha3 = await escolhaDefensores(r_horda2.moedas, escolha2.defensores, escolha2.posicoes, pers_disponiveis, r_horda2.vida)
@@ -119,7 +119,7 @@ const iniciar = async () =>{
     // final: inimigos que ainda vão aparecer
     const final3 = horda3.slice(1, horda3.length)
 
-    //resultado da primeira horda, que começou com 10 de vida
+    //resultado da terceira horda
     const r_horda3 = await horda(ini3, r_horda2.vida, r_horda2.moedas, final3, escolha3.defensores)
 
     const escolha4 = await escolhaDefensores(r_horda3.moedas, escolha3.defensores, escolha3.posicoes, pers_disponiveis, r_horda3.vida)
@@ -140,18 +140,18 @@ const iniciar = async () =>{
     // final: inimigos que ainda vão aparecer
     const final4 = horda4.slice(1, horda4.length)
 
-    //resultado da primeira horda, que começou com 10 de vida
+    //resultado da quarta horda
     const r_horda4 = await horda(ini4, r_horda3.vida, r_horda3.moedas, final4, escolha4.defensores)
 
-    if(r_horda4.vida <= 0){
+    if(r_horda4.vida <= 0){ // reiniciar o jogo quando o jogador morre
         t.clearRect(0, 0, tcanvas.width, tcanvas.height)
         
-        t.fillStyle = 'black'; // Cor do texto
-        t.font = '30px Rockwell'; // Estilo da fonte
+        t.fillStyle = 'black'
+        t.font = '30px Rockwell' 
         t.fillText("A FLORESTA FOI INVADIDA", 225, 300)
 
-        t.fillStyle = 'black'; // Cor do texto
-        t.font = '20px Rockwell'; // Estilo da fonte
+        t.fillStyle = 'black'
+        t.font = '20px Rockwell' 
         t.fillText("Clique em qualquer lugar no mapa para reiniciar", 200, 325)
         await click()
         iniciar()
@@ -159,4 +159,4 @@ const iniciar = async () =>{
 }
 document.getElementById('overlay').style.display = 'none'
 iniciar ()
-});
+})

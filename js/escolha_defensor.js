@@ -10,7 +10,7 @@ const defensor = (nome, ataque, custo, x, y, alcance) => {
     }
 }
 
-// defensores disponíveis para se escolher
+// opções de defensores para se escolher e sua posição na barra lateral
 const pers_disponiveis = [
     defensor("Defensor 1", 1, 1, 824, 46, 150),
     defensor("Defensor 2", 5, 5, 824, 122, 100),
@@ -18,21 +18,15 @@ const pers_disponiveis = [
 ]
 
 /* 
-analisar se uma posição clicada é válida
-se param == -1 : 
-    momento da escolha da posição do defensor
-    retorna true se (x,y) esta dentro de algm dos quadrados válidos
-se param >= 0 : 
-    momento da escolha do personagem 
-    param vai representar a qtd de dinheiro que o jogador tem
-    retorna true se a posição representar o lugar onde estão os personagens e se o jogador tem 
-    dinheiro suficiente para aquele personagem
-
-lpos representa a lista de posições válidas para aquele momento 
+time = 1: momento de escolher a posição, lpos será a lista de posições
+    se o jogador n tiver moedas nem para o defensor mais barato (custa 1), ele só poderá retirar defensores 
+    de posições ocupadas, por isso a posição só é válida se ela estiver ocupada
+time = 2: momento de escolher o defensor, lpos será a lista de personagens disponíveis
+    a posição será válida se o personagem escolhido puder ser custeado pelo jogador
 */
 const posicao_valida = (x, y, lpos, time, moedas) => {
     const found = achar(coord(x,y) , lpos)[0]
-    if(indef(found)) return false
+    if(indef(found)) return false //(x,y) n esta em lpos
     else if(time == 1 && moedas < 1) return found.ocupado
     else if(time == 2) return found.custo <= moedas
     else return true
@@ -101,10 +95,10 @@ const capturaClique = (lpos, time, moedas = -1) => {
 função que retorna os defenfores escolhidos, as moedas restantes e a situação 
 das posições em que se podem colocar personagens ( se estão ocupadas ou n) atualizada
 
-qtd: quantos personagens podem ser adicionados
 ldef : lista de defensores escolhidos até ent
 lpos : lista de posições onde se pode alocar defensores
 lpers : lista de defensores que se pode escolher
+ind : ( qnd for true - o botão de iniciar horda já foi clicado)
 */
 const escolhaDefensores = async (moedas, ldef, lpos, lpers, vida, ind = false) => {
     d.clearRect(0, 0, dcv.width, dcv.height)  
@@ -124,12 +118,12 @@ const escolhaDefensores = async (moedas, ldef, lpos, lpers, vida, ind = false) =
         const coord_pos = await capturaClique(lpos, 1, moedas) // coordenadas do clique
         const pos = achar(coord_pos, lpos)[0]
 
-        if(pos.x == 865 && pos.y == 500){
+        if(pos.x == 865 && pos.y == 500){ // clicou no botão de iniciar horda
             return escolhaDefensores(moedas, ldef, lpos, lpers, vida, true)
         }else{
-            // edição da situação da posição, se ocupada == true, troco para ocupada == false e vice-versa
+            // edição da situação da posição, se ocupada == true, troca para ocupada == false e vice-versa
             const inv_pos = {x:pos.x, y:pos.y, ocupado:!pos.ocupado} 
-            const n_lpos = editar(lpos, pos, inv_pos) // lista de posiçõea atualizada
+            const n_lpos = editar(lpos, pos, inv_pos) // lista de posições atualizada
 
             // se a posição n estava ocupada, ent tenho que escolher o personagem para ocupá-la
             if(pos.ocupado == false){
@@ -142,7 +136,7 @@ const escolhaDefensores = async (moedas, ldef, lpos, lpers, vida, ind = false) =
                 const n_moedas = moedas - pers.custo
                 const n_ldef = adicionar(ldef, n_def)
 
-                return await escolhaDefensores(n_moedas, n_ldef, n_lpos, lpers, vida, false);
+                return await escolhaDefensores(n_moedas, n_ldef, n_lpos, lpers, vida, false)
             }else{ // se a pos esta ocupada, vou tirar o personagem alocado nela
                 const pers = achar(coord_pos, ldef)[0] // acho quem é esse personagem
                 const n_moedas = pers.custo*0.25 + moedas // 25% de cashback do custo do personagem

@@ -84,9 +84,8 @@ const updtPos = (inv) => {
 
 /*função recursiva que retorna os invasores com suas vidas atualizadas após o 
 ataque dos defensores e quanto de moedas se ganhou com essa onda de ataques */
-
 const ataque_defensores = ([def, ...resto], inv_curr, ganho = 0) => {
-    if (indef(def)) return {inv : inv_curr, ganho : ganho} // caso base : já analise todos os defensores
+    if (indef(def)) return {inv : inv_curr, ganho : ganho} // caso base : já analisei todos os defensores
     else{
 
         // para def ( o defensor atual ) atualizo a vida de todos que ele alcança
@@ -141,14 +140,15 @@ const draw_healthBar = (inv) => {
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 // função recursiva que retornará as vidas e as moedas após uma horda
+// ind representa quantas chamadas a função teve, será utilizado para escolher o frame das animações que será exibido
 const horda = async (inv_curr, vida, moedas, inv_fora, def, ind = 0) => {
-    // Desenho os invasores e os defensores
+    
     draw_invasor(inv_curr, ind)
     draw_defensor(def, ind)
     drawVida_Moeda(vida, moedas)
 
     // Adiciona um pequeno atraso para dar tempo para os inimigos aparecerem
-    await delay(100) // Meio segundo de pausa entre os movimentos
+    await delay(100) 
 
     if (inv_curr.length == 0 || vida <= 0) { // Caso base: Sem invasores ou jogador perdeu todas as vidas
         return {vida: vida, moedas: moedas}
