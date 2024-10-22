@@ -8,34 +8,22 @@
         
         #canvas_mapa {
             position: absolute; 
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            max-width: 960px;
-            height: 576px;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
             z-index: 1; 
         }
 
         #dcv {
             position: absolute; 
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            max-width: 960px;
-            height: 576px;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
             z-index: 3;
         }
 
         #texto {
             position: absolute; 
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            max-width: 960px;
-            height: 576px;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
             z-index: 2; 
         }
 
@@ -59,16 +47,15 @@
         /* Estilo principal da página */
         body {
             margin: 0;
-             display: flex;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
             background-color: bisque;
             color: white;
             font-family: Arial, sans-serif;
-            position: relative;
-}
+        }
 
         /* Estilização do canvas do jogo */
         canvas {
@@ -87,6 +74,7 @@
         #startButton {
             background-color: #ff67b3;
             color: white;
+            margin-top: 10px;
             padding: 20px 35px;
             font-size: 24px;
             font-family: 'Rockwell', sans-serif;
@@ -94,14 +82,14 @@
             border: none;
             border-radius: 15px;
             cursor: pointer;
+            position: absolute;
             box-shadow: 0 7px #a5a0a0;
             transition: all 0.3s ease;
-            position: absolute;
-            top: 60%;
-            left: 50%;
+            top: 49%;
+            left: 35%;
             transform: translate(-50%, -50%);
-            z-index: 20;
-}
+            z-index: 10;
+        }
 
         #startButton:hover {
             background-color: #41b336;
@@ -116,32 +104,31 @@
         
         #overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            max-width: 960px;
+            top: 0;
+            left: 0;
+            width: 960px;
             height: 576px;
-            transform: translate(-50%, -50%);
-            background-image: url('https://preview.redd.it/a-couple-of-parallax-backgrounds-that-ive-been-working-on-v0-vf7111evda7b1.png?width=960&format=png&auto=webp&s=49d712315017d6a9824fbcd249b6fb09679a46f3');
+            background-image: url('https://preview.redd.it/a-couple-of-parallax-backgrounds-that-ive-been-working-on-v0-vf7111evda7b1.png?width=960&format=png&auto=webp&s=49d712315017d6a9824fbcd249b6fb09679a46f3'); /* Coloque a URL da imagem de fundo */
             background-size: cover;
             background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10;
-}
+            z-index: 1;
+        }
 
         #gameTitle {
             position: relative;
             font-size: 50px;
-            font-family: "Rockwell", sans-serif;
+            margin-top: -170px;
+            font-family: "Rockwell" , sans-serif;
             font-weight: bold;
             color: #fff;
             text-align: center;
+            transition: color 0.3s ease;
             text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
             z-index: 2;
-            transform: translateY(-50%);
-}
+        }
 
         .blossondefense {
             color: #ff67b3;
@@ -150,6 +137,7 @@
         #tutorial-Button {
             background-color: #ff67b3;
             color: rgb(255, 255, 255);
+            margin-top: 10px;
             padding: 10px 20px;
             font-size: 15px;
             font-family: 'Rockwell', sans-serif;
@@ -160,19 +148,19 @@
             position: absolute;
             box-shadow: 0 7px #a5a0a0;
             transition: all 0.3s ease;
-            top: 30%;
-            left: 50%;
+            top: 5%;
+            left: 65%;
             transform: translate(-50%, -50%);
-            z-index: 12;
-}
+            z-index: 10;
+        }
         #tutorial-text {
             position: absolute;
             background-color: rgba(0, 0, 0, 0.8);
             color: #fff;
             border: 1px solid #ccc;
             padding: 10px;
-            margin-top: -10%;
-            left: 30%;
+            margin-top: -29%;
+            left: 21%;
             z-index: 30;
         }
     </style>
