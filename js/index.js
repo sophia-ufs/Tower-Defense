@@ -52,11 +52,11 @@ const iniciar = async () =>{
     exibirComando(t, "Hora da Horda!", 20, 40)
     //inimigos da horda 1
     const horda1 = Object.freeze([
-        {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: 28, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -68, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -164, y: 124, dir: 0},
-        {nome: "GreenEyes", vida: 50, tot_vida : 50, ataque: 2, x: -260, y: 124, dir: 0},
-        {nome: "Phantom", vida: 120, tot_vida : 120, ataque: 4, x: -356, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 80, tot_vida: 80, ataque: 2, x: 28, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -68, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -164, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 80, tot_vida : 80, ataque: 2, x: -260, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -356, y: 124, dir: 0},
     ])
 
     // ini: inimigo que já está na tela
@@ -70,14 +70,14 @@ const iniciar = async () =>{
     const escolha2 = await escolhaDefensores(r_horda1.moedas, escolha1.defensores, escolha1.posicoes, pers_disponiveis, r_horda1.vida)
 
     const horda2 = Object.freeze([
-        {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: 28, y: 124, dir: 0},
-        {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: -68, y: 124, dir: 0},
-        {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: -164, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -356, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -414, y: 124, dir: 0},
-        {nome: "RedEyes", vida: 80, tot_vida: 80, ataque: 3, x: -472, y: 124, dir: 0},
-        {nome: "Phantom", vida: 120, tot_vida : 120, ataque: 4, x: -530, y: 124, dir: 0},
-        {nome: "Phantom", vida: 120, tot_vida : 120, ataque: 4, x: -588, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 80, tot_vida: 80, ataque: 2, x: 28, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 80, tot_vida: 80, ataque: 2, x: -68, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 80, tot_vida: 80, ataque: 2, x: -164, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -356, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -430, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -490, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -550, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -600, y: 124, dir: 0},
     ])
 
     // ini: inimigo que já está na tela
@@ -87,6 +87,53 @@ const iniciar = async () =>{
 
     //resultado da primeira horda, que começou com 10 de vida
     const r_horda2 = await horda(ini2, r_horda1.vida, r_horda1.moedas, final2, escolha2.defensores)
+
+    const escolha3 = await escolhaDefensores(r_horda2.moedas, escolha2.defensores, escolha2.posicoes, pers_disponiveis, r_horda2.vida)
+
+    const horda3 = Object.freeze([
+        {nome: "GreenEyes", vida: 80, tot_vida: 80, ataque: 2, x: 28, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 80, tot_vida: 80, ataque: 2, x: -68, y: 124, dir: 0},
+        {nome: "GreenEyes", vida: 80, tot_vida: 80, ataque: 2, x: -164, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -356, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -414, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -472, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -530, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -588, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -636, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -698, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -760, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -820, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -880, y: 124, dir: 0},
+    ])
+
+    // ini: inimigo que já está na tela
+    const ini3 = horda3.slice(0, 1)
+    // final: inimigos que ainda vão aparecer
+    const final3 = horda3.slice(1, horda3.length)
+
+    //resultado da primeira horda, que começou com 10 de vida
+    const r_horda3 = await horda(ini3, r_horda2.vida, r_horda2.moedas, final3, escolha3.defensores)
+
+    const escolha4 = await escolhaDefensores(r_horda3.moedas, escolha3.defensores, escolha3.posicoes, pers_disponiveis, r_horda3.vida)
+
+    const horda4 = Object.freeze([
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: 28, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -68, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -164, y: 124, dir: 0},
+        {nome: "RedEyes", vida: 120, tot_vida: 120, ataque: 3, x: -356, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -414, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -472, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -530, y: 124, dir: 0},
+        {nome: "Phantom", vida: 160, tot_vida : 160, ataque: 4, x: -588, y: 124, dir: 0},
+    ])
+
+    // ini: inimigo que já está na tela
+    const ini4 = horda4.slice(0, 1)
+    // final: inimigos que ainda vão aparecer
+    const final4 = horda4.slice(1, horda4.length)
+
+    //resultado da primeira horda, que começou com 10 de vida
+    const r_horda4 = await horda(ini4, r_horda3.vida, r_horda3.moedas, final4, escolha4.defensores)
 }
 document.getElementById('overlay').style.display = 'none'
 iniciar ()
