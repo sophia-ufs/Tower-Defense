@@ -103,39 +103,38 @@ const ataque_defensores = ([def, ...resto], inv_curr, ganho = 0) => {
 }
 
 const draw_invasor = (invasores, ind) => {
+    d.clearRect(0, 0, dcv.width, dcv.height)
 
     const spriteInvasor1 = document.getElementById('GreenEyes')
     const spriteInvasor2 = document.getElementById('RedEyes')
     const spriteInvasor3 = document.getElementById('Phantom')
 
-    d.clearRect(0, 0, dcv.width, dcv.height); // Limpa o canvas
-
     invasores.forEach(inv => {
         if (inv.nome === "GreenEyes") {
-            draw_frame(inv, ind, spriteInvasor1, 3, 64)
+            draw_frame(inv, ind%3, spriteInvasor1, 3, 64)
         }else if (inv.nome === "RedEyes"){
-            draw_frame(inv, ind, spriteInvasor2, 3, 64)
+            draw_frame(inv, ind%3, spriteInvasor2, 3, 64)
         } else {
-            draw_frame(inv, ind, spriteInvasor3, 3, 64)
+            draw_frame(inv, ind%3, spriteInvasor3, 3, 64)
         }
-        draw_healthBar(inv);
+        draw_healthBar(inv)
     })
 }
 
 
 // Função para desenhar a barra de vida acima do invasor
 const draw_healthBar = (inv) => {
-    const maxWidth = 48; //Largura máxima da barrinha de vida
+    const maxWidth = 48 //Largura máxima da barrinha de vida
     const maxLife = inv.tot_vida // Vida máxima
-    const healthPercentage = inv.vida / maxLife; // Percentual de vida 
+    const healthPercentage = inv.vida / maxLife // Percentual de vida 
 
     // Definindo cor: verde > amarelo > vermelho
     const color = healthPercentage > 0.5 ? 'green' :
-                  healthPercentage > 0.25 ? 'yellow' : 'red';
+                  healthPercentage > 0.25 ? 'yellow' : 'red'
 
     // Desenha a barra de vida acima do invasor
-    d.fillStyle = color;
-    d.fillRect(inv.x, inv.y - 12, maxWidth * healthPercentage, 8); // Tamanhos de largura e comprimento da barra de vida acima do invasor
+    d.fillStyle = color
+    d.fillRect(inv.x, inv.y - 12, maxWidth * healthPercentage, 8) // Tamanhos de largura e comprimento da barra de vida acima do invasor
 }
 
 // Função de atraso para dar tempo de renderização entre os ciclos
@@ -143,37 +142,36 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 // função recursiva que retornará as vidas e as moedas após uma horda
 const horda = async (inv_curr, vida, moedas, inv_fora, def, ind = 0) => {
-
     // Desenho os invasores e os defensores
     draw_invasor(inv_curr, ind)
-    draw_defensor(def)
+    draw_defensor(def, ind)
     drawVida_Moeda(vida, moedas)
 
     // Adiciona um pequeno atraso para dar tempo para os inimigos aparecerem
-    await delay(100); // Meio segundo de pausa entre os movimentos
+    await delay(100) // Meio segundo de pausa entre os movimentos
 
     if (inv_curr.length == 0 || vida <= 0) { // Caso base: Sem invasores ou jogador perdeu todas as vidas
-        return {vida: vida, moedas: moedas};
+        return {vida: vida, moedas: moedas}
     } else {
         // Primeiro os defensores atacam os invasores
-        const atq = ataque_defensores(def, inv_curr);
-        const n_moedas = moedas + atq.ganho;
+        const atq = ataque_defensores(def, inv_curr)
+        const n_moedas = moedas + atq.ganho
 
         // Depois os invasores se movimentam
-        const mov = updtPos(atq.inv); // Movimento de quem já estava no mapa
-        const mov2 = updtPos(inv_fora); // Movimento de quem ainda não estava no mapa
+        const mov = updtPos(atq.inv) // Movimento de quem já estava no mapa
+        const mov2 = updtPos(inv_fora) // Movimento de quem ainda não estava no mapa
 
         // Novos são os inimigos que acabaram de aparecer no mapa
-        const novos = mov2.inv.filter((curr) => curr.x >= 0);
+        const novos = mov2.inv.filter((curr) => curr.x >= 0)
 
         // n_fora representará a nova lista de quem ainda não apareceu no mapa
-        const n_fora = mov2.inv.filter((curr) => curr.x < 0);
+        const n_fora = mov2.inv.filter((curr) => curr.x < 0)
 
         // n_inv representa a nova lista de quem está no mapa
-        const n_inv = [...mov.inv, ...novos];
-        const n_vida = vida - mov.perda;
+        const n_inv = [...mov.inv, ...novos]
+        const n_vida = vida - mov.perda
 
         // Chama a próxima iteração da horda após o movimento e ataque
-        return await horda(n_inv, n_vida, n_moedas, n_fora, def, (ind+1)%3);
+        return await horda(n_inv, n_vida, n_moedas, n_fora, def, ind+1)
     }
 }

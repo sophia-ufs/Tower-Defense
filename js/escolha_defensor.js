@@ -37,11 +37,11 @@ const posicao_valida = (x, y, lpos, param = -1) => {
     else return true
 }
 
-const draw_defensor = (defensores) => {
+const draw_defensor = (defensores, ind = 0) => {
     const spriteDefensor1 = new Image()
     spriteDefensor1.src = 'img/defensor1.png'
     const spriteDefensor2 = new Image()
-    spriteDefensor2.src = 'img/defensor2.png'
+    spriteDefensor2.src = 'img/defensor2t.png'
     const spriteDefensor3 = new Image()
     spriteDefensor3.src = 'img/defensor3.png'
     
@@ -50,21 +50,14 @@ const draw_defensor = (defensores) => {
         d.arc(def.x + 24, def.y + 24, def.alcance, 0, 2 * Math.PI) // `def.alcance` deve ser definido para cada defensor
         d.fillStyle = 'rgba(255, 255, 255, 0.1)' // Círculo de alcance com transparência
         d.fill() // Preenche o círculo
-        d.strokeStyle = 'rgba(0, 0, 0, 0.2)' // Cor da borda do círculo de alcance
-        d.stroke() // Desenha a borda do círculo
 
         if(def.nome == "Defensor 1"){ 
-            draw_frame(def, 0, spriteDefensor1, 8, 100)
+            draw_frame(def, ind%8, spriteDefensor1, 8, 128)
         }else if(def.nome == "Defensor 2"){
-            draw_frame(def, 0, spriteDefensor2, 4, 100)
+            draw_frame(def, ind%4, spriteDefensor2, 4, 118)
         }else{
-            draw_frame(def, 0, spriteDefensor3, 8, 100)
+            draw_frame(def, ind%8, spriteDefensor3, 8, 128)
         }
-        d.fillStyle = 'black'; 
-        d.font = '9px Arial'; 
-        d.textAlign = 'center'; // Alinhamento horizontal
-        d.textBaseline = 'middle'; // Alinhamento vertical
-        d.fillText(def.nome, def.x + 24, def.y-5); 
     })
 }
 

@@ -42,11 +42,11 @@ const drawVida_Moeda = (vida, moeda) => {
 }
 
 const draw_frame = (pers, frame, sprite, qtd, sz) => {
-    const largura = sprite.width/qtd; 
-    const altura = sprite.height; 
-    const sx = frame * largura;
+    const largura = sprite.width/qtd 
+    const altura = sprite.height
+    const sx = frame * largura
     const sy = 0; 
-    d.drawImage(sprite, sx, sy, largura, altura, pers.x, pers.y, sz, sz);
+    d.drawImage(sprite, sx, sy, largura, altura, pers.x + (48-sz)/2, pers.y + (48-sz)/2, sz, sz);
 }
 
 const exibirComando = (ctx, txt, x, y) => {
