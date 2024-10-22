@@ -113,7 +113,7 @@ const escolhaDefensores = async (moedas, ldef, lpos, lpers, vida, ind = false) =
     draw_defensor(ldef) 
     drawVida_Moeda(vida, moedas)
 
-    if(ind == true){ // caso base 
+    if(ind == true || vida <= 0){ // caso base 
         return{
             moedas: moedas,
             defensores : ldef,

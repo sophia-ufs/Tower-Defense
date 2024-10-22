@@ -44,6 +44,14 @@ startButton.addEventListener('click', () => {
     tutorialButton.style.display = 'none'; // Esconder o botão de tutorial
     tutorialText.style.display = 'none'; // Esconder o texto do tutorial
 
+const click = () => {
+    return new Promise((resolve) => {
+        dcv.addEventListener('click', function handleClick(event) {
+            resolve()
+            dcv.removeEventListener('click', handleClick)
+        })
+    })
+}
 // função de iniciar o jogo
 const iniciar = async () =>{
 
@@ -134,6 +142,20 @@ const iniciar = async () =>{
 
     //resultado da primeira horda, que começou com 10 de vida
     const r_horda4 = await horda(ini4, r_horda3.vida, r_horda3.moedas, final4, escolha4.defensores)
+
+    if(r_horda4.vida <= 0){
+        t.clearRect(0, 0, tcanvas.width, tcanvas.height)
+        
+        t.fillStyle = 'black'; // Cor do texto
+        t.font = '30px Rockwell'; // Estilo da fonte
+        t.fillText("A FLORESTA FOI INVADIDA", 225, 300)
+
+        t.fillStyle = 'black'; // Cor do texto
+        t.font = '20px Rockwell'; // Estilo da fonte
+        t.fillText("Clique em qualquer lugar no mapa para reiniciar", 200, 325)
+        await click()
+        iniciar()
+    }
 }
 document.getElementById('overlay').style.display = 'none'
 iniciar ()
