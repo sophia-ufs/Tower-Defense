@@ -49,7 +49,7 @@ const iniciar = async () =>{
 
     //resultado da primeira escolha do jogador, podendo adicionar 5 defensores com 6 moedas disponíveis
     const escolha1 = await escolhaDefensores(6, [], pos_defensor1, pers_disponiveis, 10) 
-    exibirComando(t, "Hora da Horda!", 10, 20)
+    exibirComando(t, "Hora da Horda!", 20, 40)
     //inimigos da horda 1
     const horda1 = Object.freeze([
         {nome: "GreenEyes", vida: 50, tot_vida: 50, ataque: 2, x: 28, y: 124, dir: 0},

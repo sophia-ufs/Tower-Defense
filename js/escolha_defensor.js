@@ -120,7 +120,7 @@ const escolhaDefensores = async (moedas, ldef, lpos, lpers, vida, ind = false) =
             posicoes : lpos
         }
     }else{
-        exibirComando(t, "Escolha a Posição", 10, 20)
+        exibirComando(t, "Escolha a Posição", 20, 40)
         const coord_pos = await capturaClique(lpos, 1, moedas) // coordenadas do clique
         const pos = achar(coord_pos, lpos)[0]
 
@@ -133,7 +133,7 @@ const escolhaDefensores = async (moedas, ldef, lpos, lpers, vida, ind = false) =
 
             // se a posição n estava ocupada, ent tenho que escolher o personagem para ocupá-la
             if(pos.ocupado == false){
-                exibirComando(t, "Escolha o Personagem", 10, 20)
+                exibirComando(t, "Escolha o Personagem", 20, 40)
                 const coord_pers = await capturaClique(lpers, 2, moedas) // coordenadas do clique
                 // pers representa o personagem do quadrado em que a coord_pos está inclusa
                 const pers = achar(coord_pers, lpers)[0]
