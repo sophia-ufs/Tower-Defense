@@ -13,8 +13,8 @@ const defensor = (nome, ataque, custo, x, y, alcance) => {
 // defensores disponíveis para se escolher
 const pers_disponiveis = [
     defensor("Defensor 1", 1, 1, 821, 56, 150),
-    defensor("Defensor 2", 2, 2, 821, 140, 100),
-    defensor("Defensor 3", 3, 3, 821, 220, 80)
+    defensor("Defensor 2", 5, 5, 821, 140, 100),
+    defensor("Defensor 3", 10, 10, 821, 220, 80)
 ]
 
 /* 
