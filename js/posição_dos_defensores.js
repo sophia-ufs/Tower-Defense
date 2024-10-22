@@ -37,7 +37,7 @@ const achar_posiçoes_d = ([x, ...xs], param, pos = 0) => {
   else return achar_posiçoes_d(xs, param, pos+1)
 }
 // posições onde se pode alocar defensores no mapa 1
-const pos_defensor1 = [...achar_posiçoes_d(dados_locais_mapa1, 24), coord(865, 500)]
+const pos_defensor1 = [...achar_posiçoes_d(dados_locais_mapa1, 24), nova_pos_defesa(865/48, 500/48, true)]
 
 //pontos de mudança de direção
 const mapaUm = [
